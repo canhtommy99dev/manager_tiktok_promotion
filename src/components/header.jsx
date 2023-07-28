@@ -46,7 +46,7 @@ const Header = (props) => {
                   <NavDropdown.Item href="/manager_transaction">
                     Quản lý Sản Phẩm
                   </NavDropdown.Item>
-                  <NavDropdown.Item href="/manager_transaction">
+                  <NavDropdown.Item href="/product_promotion">
                     Quản lý giao dịch đơn hàng
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
