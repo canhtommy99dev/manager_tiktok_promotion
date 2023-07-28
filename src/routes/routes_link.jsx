@@ -10,6 +10,7 @@ import HomePage from "../pages/home_page/home_page";
 
 import AboutInCode from "../pages/about_in_code/about_in_code";
 import ManagerTransaction from "../pages/manager_in_transaction/manager_in_transaction";
+import PageManagerProduction from "../pages/page_manager_production/PageManagerProduction";
 
 export default function RoutesLinkApi() {
   return (
@@ -46,6 +47,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <ManagerTransaction />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/product_promotion"
+          element={
+            <PrivateRouter>
+              <PageManagerProduction />
             </PrivateRouter>
           }
         />

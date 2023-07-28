@@ -42,6 +42,16 @@ const Header = (props) => {
                 <Nav.Link href="/about" eventKey="link-1">
                   Link
                 </Nav.Link>
+                <NavDropdown title="Manager" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="/manager_transaction">
+                    Quản lý Sản Phẩm
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/manager_transaction">
+                    Quản lý giao dịch đơn hàng
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                </NavDropdown>
+
                 {user && user.email && (
                   <span className="nav-link">Welcome to {user.email}</span>
                 )}

@@ -6,8 +6,10 @@ const UserTransactionServices = () => {
   );
 };
 
-const postCreateUser = (name, jobs) => {
-  return instantExportsAPIAXIOS.post(`/api/users`, { name: name, jobs: jobs });
+const ProductionTiktokPromotion = () => {
+  return instantExportsAPIAXIOS.get(
+    `/api_backend/get_production_tiktok_promotion`
+  );
 };
 
 const putUpdateUser = (name, jobs) => {
@@ -23,7 +25,7 @@ const loginApp = (email, password) => {
 };
 export {
   UserTransactionServices,
-  postCreateUser,
+  ProductionTiktokPromotion,
   putUpdateUser,
   deleteUser,
   loginApp,
