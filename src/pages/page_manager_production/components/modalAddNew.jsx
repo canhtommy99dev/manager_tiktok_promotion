@@ -20,7 +20,7 @@ const ModalAddNew = (props) => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
 
-  const [imageInfos, setImageInfos] = useState([]);
+  // const [imageInfos, setImageInfos] = useState([]);
 
   const selectFile = (event) => {
     setCurrentFile(event.target.files[0]);
@@ -209,7 +209,7 @@ const ModalAddNew = (props) => {
                 onChange={(event) => setCategory(event.target.value)}
               />
             </div>
-            <div className="card mt-3">
+            {/* <div className="card mt-3">
               <div className="card-header">List of Images</div>
               <ul className="list-group list-group-flush">
                 {imageInfos &&
@@ -222,7 +222,7 @@ const ModalAddNew = (props) => {
                     </li>
                   ))}
               </ul>
-            </div>
+            </div> */}
           </div>
         </Modal.Body>
         <Modal.Footer>

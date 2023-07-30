@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { ProductionTiktokPromotion } from "../../services/TransactionService";
 import ModalAddNew from "./components/modalAddNew";
+import "./components/styles.css";
 
 export default function PageManagerProduction() {
   const [listPromotion, setListPromotion] = useState([]);
@@ -61,7 +62,12 @@ export default function PageManagerProduction() {
                   <td>{item.commission_discount}</td>
                   <td>{item.total_price}</td>
                   <td>
-                    <img src={item.image} width="100" height="50" />
+                    <img
+                      src={item.image}
+                      width="100"
+                      height="50"
+                      object-fit="cover"
+                    />
                   </td>
                   <td>
                     <Button variant="warning">Edit</Button>{" "}
