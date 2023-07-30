@@ -1,10 +1,17 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { ProductionTiktokPromotion } from "../../services/TransactionService";
+import ModalAddNew from "./components/modalAddNew";
 
 export default function PageManagerProduction() {
   const [listPromotion, setListPromotion] = useState([]);
+  const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+
+  const handleCloseShow = () => {
+    setIsShowModalAddNew(false);
+  };
 
   const getListPromotion = async () => {
     let res = await ProductionTiktokPromotion();
@@ -23,7 +30,12 @@ export default function PageManagerProduction() {
         <span>
           <b>List User:</b>
         </span>
-        <button className="btn btn-success">Add Production</button>
+        <button
+          className="btn btn-success"
+          onClick={() => setIsShowModalAddNew(true)}
+        >
+          Add Production
+        </button>
       </div>
       <Table striped bordered hover>
         <thead>
@@ -60,6 +72,11 @@ export default function PageManagerProduction() {
             })}
         </tbody>
       </Table>
+      <ModalAddNew
+        show={isShowModalAddNew}
+        handleClose={handleCloseShow}
+        handleUpdateTable={getListPromotion}
+      />
     </div>
   );
 }

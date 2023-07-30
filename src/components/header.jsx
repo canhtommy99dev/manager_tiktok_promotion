@@ -44,10 +44,10 @@ const Header = (props) => {
                 </Nav.Link>
                 <NavDropdown title="Manager" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/manager_transaction">
-                    Quản lý Sản Phẩm
+                    Quản lý giao dịch đơn hàng
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/product_promotion">
-                    Quản lý giao dịch đơn hàng
+                    Quản lý Sản Phẩm
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                 </NavDropdown>
