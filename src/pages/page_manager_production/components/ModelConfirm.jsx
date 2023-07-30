@@ -1,14 +1,15 @@
 import { Button, Modal } from "react-bootstrap";
-import { deleteUser } from "../services/UserServices";
+import { deleteProduction } from "../../../services/PromotionServices";
 import { toast } from "react-toastify";
 
-const ModalConfirm = (props) => {
-  const { show, handleClose, nameGetDelete } = props;
+const ModalConfirmProduction = (props) => {
+  const { show, handleClose, nameGetDelete, handleUpdateTable } = props;
 
   const confirmDelete = async () => {
-    const res = await deleteUser(nameGetDelete.id);
-    if (res && res.statusCode === 204) {
+    const res = await deleteProduction(nameGetDelete.id);
+    if (res) {
       toast.success("Delete Success");
+      handleUpdateTable();
       handleClose();
     } else {
       toast.error("Delete Failed");
@@ -32,7 +33,7 @@ const ModalConfirm = (props) => {
         </Modal.Header>
         <Modal.Body>
           <div className="body-add-new">
-            Bạn muốn xoá 1 hàng {nameGetDelete.email} ?
+            Bạn muốn xoá 1 sản phẩm {nameGetDelete.name_product} ?
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -48,4 +49,4 @@ const ModalConfirm = (props) => {
   );
 };
 
-export default ModalConfirm;
+export default ModalConfirmProduction;

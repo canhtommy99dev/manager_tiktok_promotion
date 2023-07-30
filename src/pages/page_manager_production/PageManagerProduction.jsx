@@ -5,13 +5,31 @@ import Table from "react-bootstrap/Table";
 import { ProductionTiktokPromotion } from "../../services/TransactionService";
 import ModalAddNew from "./components/modalAddNew";
 import "./components/styles.css";
+import ModalEditUser from "./components/ModelEditUser";
+import ModalConfirmProduction from "./components/ModelConfirm";
 
 export default function PageManagerProduction() {
   const [listPromotion, setListPromotion] = useState([]);
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
+  const [isShowModalEditProduct, setIsShowModalEditProduct] = useState(false);
+  const [isShowModalDeleteId, setIsShowModalDeleteId] = useState(false);
+  const [dataProductionEdit, setProductionEdit] = useState({});
+  const [dataProductionDelete, setDataProductionDelete] = useState({});
 
   const handleCloseShow = () => {
     setIsShowModalAddNew(false);
+    setIsShowModalEditProduct(false);
+    setIsShowModalDeleteId(false);
+  };
+
+  const handleClickEdit = (product) => {
+    setProductionEdit(product);
+    setIsShowModalEditProduct(true);
+  };
+
+  const handleClickDelete = (product) => {
+    setDataProductionDelete(product);
+    setIsShowModalDeleteId(true);
   };
 
   const getListPromotion = async () => {
@@ -70,8 +88,18 @@ export default function PageManagerProduction() {
                     />
                   </td>
                   <td>
-                    <Button variant="warning">Edit</Button>{" "}
-                    <Button variant="danger">Delete</Button>{" "}
+                    <Button
+                      variant="warning"
+                      onClick={() => handleClickEdit(item)}
+                    >
+                      Edit
+                    </Button>{" "}
+                    <Button
+                      variant="danger"
+                      onClick={() => handleClickDelete(item)}
+                    >
+                      Delete
+                    </Button>{" "}
                   </td>
                 </tr>
               );
@@ -81,6 +109,18 @@ export default function PageManagerProduction() {
       <ModalAddNew
         show={isShowModalAddNew}
         handleClose={handleCloseShow}
+        handleUpdateTable={getListPromotion}
+      />
+      <ModalEditUser
+        show={isShowModalEditProduct}
+        handleClose={handleCloseShow}
+        handleUpdateTable={getListPromotion}
+        dataProductEdit={dataProductionEdit}
+      />
+      <ModalConfirmProduction
+        show={isShowModalDeleteId}
+        handleClose={handleCloseShow}
+        nameGetDelete={dataProductionDelete}
         handleUpdateTable={getListPromotion}
       />
     </div>

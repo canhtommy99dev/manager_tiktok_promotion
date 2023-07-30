@@ -33,4 +33,46 @@ const postInProduction = (
   });
 };
 
-export { uploadImage, postInProduction };
+const putInProduction = (
+  id,
+  name_product,
+  price,
+  commission_discount,
+  description,
+  category,
+  image,
+  rating
+) => {
+  return instantExportsAPIAXIOS.put(
+    `/api_backend/update_production_app/${id}`,
+    {
+      name_product: name_product,
+      price: price,
+      commission_discount: commission_discount,
+      description: description,
+      category: category,
+      image: image,
+      rating: rating,
+    }
+  );
+};
+
+const deleteFile = (image) => {
+  return instantExportsAPIAXIOS.delete(`/api_backend/delefile`, {
+    image: image,
+  });
+};
+
+const deleteProduction = (id) => {
+  return instantExportsAPIAXIOS.delete(
+    `/api_backend/delete_production_app/${id}`
+  );
+};
+
+export {
+  uploadImage,
+  postInProduction,
+  putInProduction,
+  deleteFile,
+  deleteProduction,
+};

@@ -49,6 +49,9 @@ const Header = (props) => {
                   <NavDropdown.Item href="/product_promotion">
                     Quản lý Sản Phẩm
                   </NavDropdown.Item>
+                  <NavDropdown.Item href="/manager_profile">
+                    Quản lý Người dùng
+                  </NavDropdown.Item>
                   <NavDropdown.Divider />
                 </NavDropdown>
 
