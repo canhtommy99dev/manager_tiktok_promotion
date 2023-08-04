@@ -8,6 +8,12 @@ import {
 } from "../../../services/PromotionServices";
 import { toast } from "react-toastify";
 import "./styles.css";
+///
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const ModalEditUser = (props) => {
   const { show, handleClose, dataProductEdit, handleUpdateTable } = props;
@@ -119,6 +125,9 @@ const ModalEditUser = (props) => {
     }
   };
 
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
   return (
     <div
       className="modal show"
@@ -224,15 +233,22 @@ const ModalEditUser = (props) => {
                 onChange={(event) => setDescription(event.target.value)}
               />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Danh Mục Sản Phẩm</label>
-              <input
-                type="text"
-                className="form-control"
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-              />
-            </div>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Cấp Bậc</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Cấp bậc"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"Phổ thông"}>Phổ thông</MenuItem>
+                  <MenuItem value={"Tiểu Thương"}>Tiểu Thương</MenuItem>
+                  <MenuItem value={"Thương gia"}>Thương gia</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -256,7 +272,7 @@ const ModalEditUser = (props) => {
                 : () => putInProductInApp(dataProductEdit.image)
             }
           >
-            Thêm Sản Phẩm
+            Sửa sản phẩm
           </Button>
         </Modal.Footer>
       </Modal>

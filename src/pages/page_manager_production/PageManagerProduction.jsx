@@ -64,6 +64,7 @@ export default function PageManagerProduction() {
             <th>Price</th>
             <th>Thưởng</th>
             <th>Tổng</th>
+            <th>Cấp Bậc</th>
             <th>Hình Ảnh</th>
             <th>Action</th>
           </tr>
@@ -79,6 +80,7 @@ export default function PageManagerProduction() {
                   <td>{item.price}</td>
                   <td>{item.commission_discount}</td>
                   <td>{item.total_price}</td>
+                  <td>{item.category}</td>
                   <td>
                     <img
                       src={item.image}

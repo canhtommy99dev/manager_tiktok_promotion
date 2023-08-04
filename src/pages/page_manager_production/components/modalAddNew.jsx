@@ -6,6 +6,13 @@ import {
 } from "../../../services/PromotionServices";
 import { toast } from "react-toastify";
 import "./styles.css";
+////
+import Box from "@mui/material/Box";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+// import Checkbox from "@mui/material/Checkbox";
 
 const ModalAddNew = (props) => {
   const { show, handleClose, handleUpdateTable } = props;
@@ -19,6 +26,7 @@ const ModalAddNew = (props) => {
   const [commissionDiscount, setCommissionDiscount] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
+  // const [vipChange, setVipChange] = useState(false);
 
   // const [imageInfos, setImageInfos] = useState([]);
 
@@ -27,6 +35,10 @@ const ModalAddNew = (props) => {
     setPreviewImage(URL.createObjectURL(event.target.files[0]));
     setProgress(0);
     setMessage("");
+  };
+
+  const handleChange = (event) => {
+    setCategory(event.target.value);
   };
 
   const setClose = () => {
@@ -131,7 +143,6 @@ const ModalAddNew = (props) => {
                 </button>
               </div> */}
             </div>
-
             {currentFile && (
               <div className="progress my-3">
                 <div
@@ -146,7 +157,6 @@ const ModalAddNew = (props) => {
                 </div>
               </div>
             )}
-
             {previewImage && (
               <div>
                 <img
@@ -158,7 +168,6 @@ const ModalAddNew = (props) => {
                 />
               </div>
             )}
-
             {message && (
               <div className="alert alert-secondary mt-3" role="alert">
                 {message}
@@ -200,15 +209,37 @@ const ModalAddNew = (props) => {
                 onChange={(event) => setDescription(event.target.value)}
               />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Danh Mục Sản Phẩm</label>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Cấp Bậc</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={category}
+                  label="Cấp bậc"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={"Phổ thông"}>Phổ thông</MenuItem>
+                  <MenuItem value={"Tiểu Thương"}>Tiểu Thương</MenuItem>
+                  <MenuItem value={"Thương gia"}>Thương gia</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <label className="form-label">Gắn đơn VIP</label>{" "}
+            {/* <Checkbox
+              {...label}
+              defaultChecked={vipChange}
+              onClick={() => setVipChange(true)}
+            /> */}
+            {/* <div className="mb-3">
+              <label className="form-label">Cấp bậc</label>
               <input
                 type="text"
                 className="form-control"
                 value={category}
                 onChange={(event) => setCategory(event.target.value)}
               />
-            </div>
+            </div> */}
             {/* <div className="card mt-3">
               <div className="card-header">List of Images</div>
               <ul className="list-group list-group-flush">
