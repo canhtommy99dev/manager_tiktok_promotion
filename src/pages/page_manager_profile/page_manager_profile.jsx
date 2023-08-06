@@ -15,75 +15,68 @@ import "./myCss.css";
 import { getProfileList } from "../../services/ProfileServices";
 import { useEffect } from "react";
 import { useState } from "react";
+import ModalAddUser from "./components/modalAddUser";
 
 export default function PageManagerProfile() {
   const [listProfile, setListProfile] = useState([]);
   const [nameAccounnt, setNameAccounnt] = useState("");
-
-  // function createData(name, calories, fat, carbs, protein) {
-  //   return { name, calories, fat, carbs, protein };
-  // }
-  // const rows = [
-  //   createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  //   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  //   createData("Eclair", 262, 16.0, 24, 6.0),
-  //   createData("Cupcake", 305, 3.7, 67, 4.3),
-  //   createData("Gingerbread", 356, 16.0, 49, 3.9),
-  // ];
+  const [isShowModalAddUser, setIsShowModalAddUser] = useState(false);
 
   useEffect(() => {
     getInProlist();
   });
+
+  const handleCloseShow = () => {
+    setIsShowModalAddUser(false);
+    // setIsShowModalEditProduct(false);
+    // setIsShowModalDeleteId(false);
+  };
 
   const getInProlist = async () => {
     const res = await getProfileList();
     setListProfile(res.results);
   };
 
-  // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];.
-
-  // const handleChange = (event) => {
-  //   setSearchTerm(event.target.value);
-  // };
-
-  const getResults = () => {
-    console.log("Hello kkk,", nameAccounnt);
+  let inputHandler = (e) => {
+    //convert input text to lower case
+    var lowerCase = e.target.value.toLowerCase();
+    setNameAccounnt(lowerCase);
   };
+
+  const filteredData = listProfile.filter((itemList) => {
+    //if no input the return the original
+    if (nameAccounnt === "") {
+      return itemList;
+    }
+    //return the item which contains the user input
+    else {
+      return itemList.user_name.toLowerCase().includes(nameAccounnt);
+    }
+  });
 
   return (
     <div>
       <br />
-      {/* <Container maxWidth="md" sx={{ mt: 3 }}>
-        <TextField
-          id="search"
-          type="search"
-          label="Search"
-          value={nameAccounnt}
-          onChange={(event) => setNameAccounnt(event.target.value)}
-          sx={{ width: 600 }}
-          InputProps={{
-            endAdornment: (
-              <IconButton aria-label="delete" onClick={() => getResults()}>
-                <SearchIcon />
-              </IconButton>
-            ),
-          }}
-        />
-
-      </Container> */}
       <div className="searchText">
         <TextField
           id="search-bar"
           className="text"
-          label="Enter a city name"
+          label="Tìm User Name"
           variant="outlined"
-          placeholder="Search..."
+          placeholder="Tìm..."
           size="small"
+          fullWidth
+          onChange={inputHandler}
         />
-        <IconButton type="submit" aria-label="search">
-          <SearchIcon style={{ fill: "blue" }} />
-        </IconButton>
       </div>
+      <Button
+        variant="contained"
+        fullWidth
+        onClick={() => setIsShowModalAddUser(true)}
+      >
+        Thêm Khách Hàng
+      </Button>
+      <br />
       <br />
       <div>
         <TableContainer component={Paper}>
@@ -101,7 +94,7 @@ export default function PageManagerProfile() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {listProfile.map((item) => (
+              {filteredData.map((item) => (
                 <TableRow
                   key={item.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -130,6 +123,11 @@ export default function PageManagerProfile() {
           </Table>
         </TableContainer>
       </div>
+      <ModalAddUser
+        show={isShowModalAddUser}
+        handleClose={handleCloseShow}
+        handleUpdateTable={getInProlist}
+      />
     </div>
   );
 }

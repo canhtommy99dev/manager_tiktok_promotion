@@ -11,3 +11,13 @@ label {
 img {
   object-fit: cover;
 }
+
+.input-2 {
+  position: relative;
+  i {
+    cursor: pointer;
+    position: absolute;
+    top: 17px;
+    right: 10px;
+  }
+}

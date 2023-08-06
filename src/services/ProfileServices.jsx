@@ -4,4 +4,23 @@ const getProfileList = () => {
   return instantExportsAPIAXIOS.get(`/api_backend/get_manager_in_profile`);
 };
 
-export { getProfileList };
+const postUserRegister = (
+  user_name,
+  password,
+  phone_number,
+  link_image_avatar,
+  account_did_account
+) => {
+  return instantExportsAPIAXIOS.post(
+    `/api_backend/register_user_tiktok_promotion`,
+    {
+      user_name: user_name,
+      password: password,
+      phone_number: phone_number,
+      link_image_avatar: link_image_avatar,
+      account_did_account: account_did_account,
+    }
+  );
+};
+
+export { getProfileList, postUserRegister };
