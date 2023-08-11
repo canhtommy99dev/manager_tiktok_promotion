@@ -7,8 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { Container, IconButton, TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 import "./myCss.css";
 
@@ -41,6 +41,12 @@ export default function PageManagerProfile() {
     //convert input text to lower case
     var lowerCase = e.target.value.toLowerCase();
     setNameAccounnt(lowerCase);
+  };
+
+  const navigate = useNavigate();
+
+  const handleEdit = (getId) => {
+    navigate(`/profile_guest/${getId}`);
   };
 
   const filteredData = listProfile.filter((itemList) => {
@@ -109,7 +115,11 @@ export default function PageManagerProfile() {
                   <TableCell align="left">{item.pending_send}</TableCell>
                   <TableCell align="left">{item.pending_send}</TableCell>
                   <TableCell align="left">
-                    <Button variant="contained" color="success">
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={() => handleEdit(item.id)}
+                    >
                       Sửa
                     </Button>
                     {"  "}

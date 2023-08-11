@@ -12,6 +12,7 @@ import AboutInCode from "../pages/about_in_code/about_in_code";
 import ManagerTransaction from "../pages/manager_in_transaction/manager_in_transaction";
 import PageManagerProduction from "../pages/page_manager_production/PageManagerProduction";
 import PageManagerProfile from "../pages/page_manager_profile/page_manager_profile";
+import PageInfoProfile from "../pages/page_info_profile/page_info_profile";
 
 export default function RoutesLinkApi() {
   return (
@@ -64,6 +65,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageManagerProfile />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/profile_guest/:id"
+          element={
+            <PrivateRouter>
+              <PageInfoProfile />
             </PrivateRouter>
           }
         />

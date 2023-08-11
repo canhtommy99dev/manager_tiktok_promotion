@@ -69,10 +69,17 @@ const deleteProduction = (id) => {
   );
 };
 
+const getProductionInCode = (category) => {
+  return instantExportsAPIAXIOS.get(
+    `/api_backend/find_product_category/?category=${category}`
+  );
+};
+
 export {
   uploadImage,
   postInProduction,
   putInProduction,
   deleteFile,
   deleteProduction,
+  getProductionInCode,
 };

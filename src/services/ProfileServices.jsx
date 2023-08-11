@@ -23,4 +23,22 @@ const postUserRegister = (
   );
 };
 
-export { getProfileList, postUserRegister };
+const getUserGuestId = (id) => {
+  return instantExportsAPIAXIOS.get(
+    `/api_backend/get_accounts_tiktok_promotion/${id}`
+  );
+};
+
+const postUserAPI = (id, user_name, phone_number, set_vip) => {
+  return instantExportsAPIAXIOS.put(
+    `/api_backend/update_user_tiktok_promotion/${id}`,
+    {
+      username: user_name,
+      phone_number: phone_number,
+      image_link: "null",
+      set_vip: set_vip,
+    }
+  );
+};
+
+export { getProfileList, postUserRegister, getUserGuestId, postUserAPI };
