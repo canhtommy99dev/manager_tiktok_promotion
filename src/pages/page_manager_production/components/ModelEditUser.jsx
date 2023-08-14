@@ -246,8 +246,8 @@ const ModalEditUser = (props) => {
                   <MenuItem value={"Phổ thông"}>Phổ thông</MenuItem>
                   <MenuItem value={"Tiểu thương"}>Tiểu thương</MenuItem>
                   <MenuItem value={"Thương Gia"}>Thương Gia</MenuItem>
-                  <MenuItem value={"Đại lý tiktok"}>Thương Gia</MenuItem>
-                  <MenuItem value={"Doanh nghiệp"}>Thương Gia</MenuItem>
+                  <MenuItem value={"Đại lý tiktok"}>Đại lý tiktok</MenuItem>
+                  <MenuItem value={"Doanh nghiệp"}>Doanh nghiệp</MenuItem>
                 </Select>
               </FormControl>
             </Box>
