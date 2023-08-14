@@ -74,7 +74,7 @@ const PageInfoProfile = () => {
   };
 
   const getAPIProductVIP = async () => {
-    let resAPI = await getProductionInCode("321");
+    let resAPI = await getProductionInCode("VIP");
     setListProductVip(resAPI.results);
   };
 

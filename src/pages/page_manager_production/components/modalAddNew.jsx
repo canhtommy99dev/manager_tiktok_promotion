@@ -224,6 +224,7 @@ const ModalAddNew = (props) => {
                   <MenuItem value={"Thương Gia"}>Thương Gia</MenuItem>
                   <MenuItem value={"Đại lý tiktok"}>Đại lý tiktok</MenuItem>
                   <MenuItem value={"Doanh nghiệp"}>Doanh nghiệp</MenuItem>
+                  <MenuItem value={"VIP"}>VIP</MenuItem>
                 </Select>
               </FormControl>
             </Box>
