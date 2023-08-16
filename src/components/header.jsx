@@ -43,6 +43,9 @@ const Header = (props) => {
                   Link
                 </Nav.Link>
                 <NavDropdown title="Manager" id="basic-nav-dropdown">
+                  <NavDropdown.Item href="/manager_price">
+                    Quản lý Nạp Rút
+                  </NavDropdown.Item>
                   <NavDropdown.Item href="/manager_transaction">
                     Quản lý giao dịch đơn hàng
                   </NavDropdown.Item>
@@ -51,6 +54,9 @@ const Header = (props) => {
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/manager_profile">
                     Quản lý Người dùng
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/manager_slide">
+                    Quản lý Slide
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
                 </NavDropdown>
@@ -66,17 +72,6 @@ const Header = (props) => {
                   ) : (
                     <NavDropdown.Item href="/login">Login</NavDropdown.Item>
                   )}
-
-                  <NavDropdown.Item href="#action/3.2">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Item href="#action/3.3">
-                    Something
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action/3.4">
-                    Separated link
-                  </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
             </>

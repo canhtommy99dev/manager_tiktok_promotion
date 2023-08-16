@@ -13,6 +13,7 @@ import ManagerTransaction from "../pages/manager_in_transaction/manager_in_trans
 import PageManagerProduction from "../pages/page_manager_production/PageManagerProduction";
 import PageManagerProfile from "../pages/page_manager_profile/page_manager_profile";
 import PageInfoProfile from "../pages/page_info_profile/page_info_profile";
+import PageManagerPrice from "../pages/page_manager_price/page_manager_price";
 
 export default function RoutesLinkApi() {
   return (
@@ -65,6 +66,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageManagerProfile />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/manager_price"
+          element={
+            <PrivateRouter>
+              <PageManagerPrice />
             </PrivateRouter>
           }
         />

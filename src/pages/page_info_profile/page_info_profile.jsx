@@ -14,15 +14,18 @@ import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
 import NotFound from "../NotFound/NotFound";
 import { toast } from "react-toastify";
+import ModalAddMoney from "./components/modalAddMoney";
 
 const PageInfoProfile = () => {
   let { id } = useParams();
   const [statusResults, setStatusResults] = useState("");
+  const [isShowModalAddPrice, setIsShowModalAddPrice] = useState(false);
   /////
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [setVip, setSetVip] = useState("");
   const [type, setType] = useState("");
+  const [price, setPrice] = useState("");
 
   /////
   const [listProductVip, setListProductVip] = useState([]);
@@ -42,6 +45,10 @@ const PageInfoProfile = () => {
     navigate("/manager_profile");
   };
 
+  const handleCloseShow = () => {
+    setIsShowModalAddPrice(false);
+  };
+
   useEffect(() => {
     getAPIGuest();
     getAPIProductVIP();
@@ -54,6 +61,7 @@ const PageInfoProfile = () => {
     setUserName(resAPI.results.user_name);
     setPhoneNumber(resAPI.results.phone_number);
     setType(resAPI.results.vip_change);
+    setPrice(resAPI.results.coin_user);
     setStatusResults(resAPI.status);
     // setStatusAPIdata(resAPI.results);
     // setUserProfile(statusAPIdata);
@@ -96,6 +104,7 @@ const PageInfoProfile = () => {
         <NotFound />
       ) : (
         <div>
+          <h2>Coin: {Number(price).toLocaleString("en-US")} VNĐ</h2>
           <Form>
             <Form.Group>
               <Form.Label>Họ và tên:</Form.Label>
@@ -142,6 +151,15 @@ const PageInfoProfile = () => {
               Cập nhật
             </Button>
           </Form>
+          <hr />
+          <Button
+            variant="contained"
+            onClick={() => setIsShowModalAddPrice(true)}
+            type="submit"
+            fullWidth
+          >
+            Nạp tiền
+          </Button>
           <hr />
 
           <Form.Group controlId="formBasicSelect">
@@ -217,6 +235,12 @@ const PageInfoProfile = () => {
           </Table>
         </div>
       )}
+      <ModalAddMoney
+        idGet={id}
+        show={isShowModalAddPrice}
+        handleClose={handleCloseShow}
+        handleUpdateTable={getAPIGuest}
+      />
     </div>
   );
 };

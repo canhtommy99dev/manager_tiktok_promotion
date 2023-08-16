@@ -41,4 +41,21 @@ const postUserAPI = (id, user_name, phone_number, set_vip) => {
   );
 };
 
-export { getProfileList, postUserRegister, getUserGuestId, postUserAPI };
+const postPriceMoney = (id, coin_payment, calculator) => {
+  return instantExportsAPIAXIOS.put(
+    `/api_backend/update_payment_in_app_user/${id}`,
+    {
+      coin_payment: coin_payment,
+      calculator: calculator,
+      contentpayment: `Bạn đã nạp số tiền +${coin_payment}`,
+    }
+  );
+};
+
+export {
+  getProfileList,
+  postUserRegister,
+  getUserGuestId,
+  postUserAPI,
+  postPriceMoney,
+};
