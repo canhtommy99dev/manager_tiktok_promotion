@@ -24,7 +24,7 @@ const PageInfoProfile = () => {
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   // const [setVip, setSetVip] = useState("");
-  const [type, setType] = useState("");
+  const [typeSet, setTypeSet] = useState("");
   const [price, setPrice] = useState("");
 
   /////
@@ -60,7 +60,7 @@ const PageInfoProfile = () => {
     // console.log("hhhhhhh", resAPI.results.user_name);
     setUserName(resAPI.results.user_name);
     setPhoneNumber(resAPI.results.phone_number);
-    setType(resAPI.results.vip_change);
+    setTypeSet(resAPI.results.vip_change);
     setPrice(resAPI.results.coin_user);
     setStatusResults(resAPI.status);
     // setStatusAPIdata(resAPI.results);
@@ -68,7 +68,7 @@ const PageInfoProfile = () => {
   };
 
   const handleSumbit = async () => {
-    let resAPI = await postUserAPI(id, userName, phoneNumber, setType);
+    let resAPI = await postUserAPI(id, userName, phoneNumber, typeSet);
     console.log("res", resAPI);
     toast.success("Bạn đã cập nhật thành công");
   };
@@ -92,7 +92,7 @@ const PageInfoProfile = () => {
   };
 
   const handleClickDelete = async (id) => {
-    let resAPI = await deleteAPiViper(id);
+    await deleteAPiViper(id);
     getVipAdd();
   };
 
@@ -130,16 +130,16 @@ const PageInfoProfile = () => {
               <Form.Label>Sét hạng</Form.Label>
               <Form.Control
                 as="select"
-                value={type}
+                value={typeSet}
                 onChange={(e) => {
-                  setType(e.target.value);
+                  setTypeSet(e.target.value);
                 }}
               >
-                <option value="Phổ Thông">Phổ Thông</option>
-                <option value="Tiểu Thương">Tiểu Thương</option>
+                <option value="Phổ thông">Phổ thông</option>
+                <option value="Tiểu thương">Tiểu thương</option>
                 <option value="Thương Gia">Thương Gia</option>
-                <option value="Đại Lý Tiktok">Đại Lý Tiktok</option>
-                <option value="Doanh Nghiệp">Doanh Nghiệp</option>
+                <option value="Đại lý tiktok">Đại lý tiktok</option>
+                <option value="Doanh nghiệp">Doanh nghiệp</option>
               </Form.Control>
             </Form.Group>
             <Button
