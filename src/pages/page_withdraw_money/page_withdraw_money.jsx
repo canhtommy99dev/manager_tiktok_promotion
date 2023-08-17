@@ -10,14 +10,14 @@ import { Button } from "@mui/material";
 import "./components/styles.css";
 
 import { getListMoneyWithDraw } from "../../services/HistoryTransaction";
-import { getUserGuestId } from "../../services/ProfileServices";
 import ModalConfirmPaymentGuestWithdraw from "./components/ModelConfirmPaymentGuestWithdraw";
 
 export default function PageWithDrawMoney() {
   const [listPriceWithDraw, setListPriceWithDraw] = useState([]);
   const [isShowModal, setIsShowModal] = useState(false);
   const [dataGetEdit, setdataGetEdit] = useState({});
-  const [profile, setProfile] = useState({});
+  const [dataGetNameBank, setDataGetNameBank] = useState("");
+  const [idBankName, setBankName] = useState("");
 
   useEffect(() => {
     getAPIPrice();
@@ -28,12 +28,16 @@ export default function PageWithDrawMoney() {
     setListPriceWithDraw(resPrice.results);
   };
 
+  // const getOpenChange = () => {
+
+  // }
+
   const getPriceIdWithDraw = async (row) => {
-    const res = await getUserGuestId(row.id_user_money);
-    setIsShowModal(true);
     setdataGetEdit(row);
-    setProfile(res.results);
-    console.log("mmmmm", res.results);
+    setDataGetNameBank(row.payment_bank.id_bank);
+    setBankName(row.payment_bank.more_back.code);
+    setIsShowModal(true);
+    // console.log("mmmmm", res.results);
   };
 
   const handleCloseShow = () => {
@@ -93,7 +97,8 @@ export default function PageWithDrawMoney() {
         show={isShowModal}
         handleClose={handleCloseShow}
         nameGetConfirm={dataGetEdit}
-        nameProfile={profile}
+        idBankName={idBankName}
+        idBank={dataGetNameBank}
         handleUpdateTable={getAPIPrice}
       />
     </div>
