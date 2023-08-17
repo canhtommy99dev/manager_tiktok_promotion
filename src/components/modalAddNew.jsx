@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { postCreateUser } from "../services/UserServices";
 import { toast } from "react-toastify";
 
-const ModalAddNew = (props) => {
+const ModalAddNewSlideBanner = (props) => {
   const { show, handleClose, handleUpdateTable } = props;
   const [name, setName] = useState("");
   const [jobs, setJobs] = useState("");
@@ -72,4 +72,4 @@ const ModalAddNew = (props) => {
   );
 };
 
-export default ModalAddNew;
+export default ModalAddNewSlideBanner;

@@ -7,6 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { getPriceListPeople } from "../../services/HistoryTransaction";
+import { Button } from "@mui/material";
 
 // function createData(name, calories, fat, carbs, protein) {
 //   return { name, calories, fat, carbs, protein };
@@ -31,10 +32,16 @@ export default function PageManagerPrice() {
     let resPrice = await getPriceListPeople();
     setListPriceTransaction(resPrice.results);
   };
+
   return (
     <div>
       <br />
-      <h3>Quản lý nạp và rút</h3>
+      <div className="title_style">
+        <h3>Quản lý rút tiền</h3>
+        <Button variant="contained" href="/withdraw_manager">
+          Rút tiền
+        </Button>
+      </div>
       <br />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">

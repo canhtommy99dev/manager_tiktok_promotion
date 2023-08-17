@@ -14,6 +14,8 @@ import PageManagerProduction from "../pages/page_manager_production/PageManagerP
 import PageManagerProfile from "../pages/page_manager_profile/page_manager_profile";
 import PageInfoProfile from "../pages/page_info_profile/page_info_profile";
 import PageManagerPrice from "../pages/page_manager_price/page_manager_price";
+import PageSlideImages from "../pages/page_manager_slide_image/PageSlideImages";
+import PageWithDrawMoney from "../pages/page_withdraw_money/page_withdraw_money";
 
 export default function RoutesLinkApi() {
   return (
@@ -78,10 +80,26 @@ export default function RoutesLinkApi() {
           }
         />
         <Route
+          path="/manager_slide"
+          element={
+            <PrivateRouter>
+              <PageSlideImages />
+            </PrivateRouter>
+          }
+        />
+        <Route
           path="/profile_guest/:id"
           element={
             <PrivateRouter>
               <PageInfoProfile />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/withdraw_manager"
+          element={
+            <PrivateRouter>
+              <PageWithDrawMoney />
             </PrivateRouter>
           }
         />

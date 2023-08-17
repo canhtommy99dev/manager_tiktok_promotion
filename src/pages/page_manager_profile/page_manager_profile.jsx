@@ -56,7 +56,7 @@ export default function PageManagerProfile() {
     }
     //return the item which contains the user input
     else {
-      return itemList.user_name.toLowerCase().includes(nameAccounnt);
+      return itemList.phone_number.toLowerCase().includes(nameAccounnt);
     }
   });
 
@@ -106,7 +106,7 @@ export default function PageManagerProfile() {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    {item.id}
+                    {item.phone_number}
                   </TableCell>
                   <TableCell align="left">{item.code_intro}</TableCell>
                   <TableCell align="left">{item.coin_user}</TableCell>
