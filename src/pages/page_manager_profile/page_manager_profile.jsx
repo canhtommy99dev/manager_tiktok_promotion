@@ -112,7 +112,7 @@ export default function PageManagerProfile() {
                   <TableCell align="left">{item.coin_user}</TableCell>
                   <TableCell align="left">{item.user_name}</TableCell>
                   <TableCell align="left">{item.address}</TableCell>
-                  <TableCell align="left">{item.pending_send}</TableCell>
+                  <TableCell align="left">{item.vip_change}</TableCell>
                   <TableCell align="left">{item.pending_send}</TableCell>
                   <TableCell align="left">
                     <Button
