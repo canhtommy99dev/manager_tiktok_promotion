@@ -135,6 +135,7 @@ const PageInfoProfile = () => {
                   setTypeSet(e.target.value);
                 }}
               >
+                <option value="Thành viên mới">Thành viên mới</option>
                 <option value="Phổ thông">Phổ thông</option>
                 <option value="Tiểu thương">Tiểu thương</option>
                 <option value="Thương Gia">Thương Gia</option>
