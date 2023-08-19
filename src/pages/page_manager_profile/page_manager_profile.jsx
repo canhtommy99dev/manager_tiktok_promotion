@@ -67,7 +67,7 @@ export default function PageManagerProfile() {
         <TextField
           id="search-bar"
           className="text"
-          label="Tìm User Name"
+          label="Tìm Số Điện thoại"
           variant="outlined"
           placeholder="Tìm..."
           size="small"
