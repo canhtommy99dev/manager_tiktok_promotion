@@ -16,6 +16,7 @@ import PageInfoProfile from "../pages/page_info_profile/page_info_profile";
 import PageManagerPrice from "../pages/page_manager_price/page_manager_price";
 import PageSlideImages from "../pages/page_manager_slide_image/PageSlideImages";
 import PageWithDrawMoney from "../pages/page_withdraw_money/page_withdraw_money";
+import PageNotification from "../pages/page_manager_notification/PageSlideNotification";
 
 export default function RoutesLinkApi() {
   return (
@@ -100,6 +101,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageWithDrawMoney />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/manager_notification_app"
+          element={
+            <PrivateRouter>
+              <PageNotification />
             </PrivateRouter>
           }
         />

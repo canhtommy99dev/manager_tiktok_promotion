@@ -59,6 +59,9 @@ const Header = (props) => {
                     Quản lý Slide
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
+                  <NavDropdown.Item href="/manager_notification_app">
+                    Quản lý Thông Báo
+                  </NavDropdown.Item>
                 </NavDropdown>
 
                 {user && user.email && (
