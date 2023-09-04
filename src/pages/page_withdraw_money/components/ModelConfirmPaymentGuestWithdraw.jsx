@@ -20,9 +20,15 @@ const ModalConfirmPaymentGuestWithdraw = (props) => {
       nameGetConfirm.id_user_money
     );
     if (res) {
-      toast.success("Change Money Guest Success");
-      handleUpdateTable();
-      handleClose();
+      if (res.status === "not-withdraw") {
+        toast.error("Số dư không đủ xin vui lòng thử lại");
+        handleUpdateTable();
+        handleClose();
+      } else {
+        toast.success("Số dư đã được rút tiền");
+        handleUpdateTable();
+        handleClose();
+      }
     } else {
       toast.error("Delete Failed");
       handleClose();
