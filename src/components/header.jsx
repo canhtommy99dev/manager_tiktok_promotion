@@ -62,6 +62,9 @@ const Header = (props) => {
                   <NavDropdown.Item href="/manager_notification_app">
                     Quản lý Thông Báo
                   </NavDropdown.Item>
+                  <NavDropdown.Item href="/product_promotion_list_home_page">
+                    Quản lý Sản Phẩm Trang Chủ
+                  </NavDropdown.Item>
                 </NavDropdown>
 
                 {user && user.email && (

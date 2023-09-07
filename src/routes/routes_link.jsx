@@ -17,6 +17,7 @@ import PageManagerPrice from "../pages/page_manager_price/page_manager_price";
 import PageSlideImages from "../pages/page_manager_slide_image/PageSlideImages";
 import PageWithDrawMoney from "../pages/page_withdraw_money/page_withdraw_money";
 import PageNotification from "../pages/page_manager_notification/PageSlideNotification";
+import PageManagerProductionInHomePages from "../pages/page_manager_production_in_home_page/PageManagerProductionInHomePages";
 
 export default function RoutesLinkApi() {
   return (
@@ -109,6 +110,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageNotification />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/product_promotion_list_home_page"
+          element={
+            <PrivateRouter>
+              <PageManagerProductionInHomePages />
             </PrivateRouter>
           }
         />

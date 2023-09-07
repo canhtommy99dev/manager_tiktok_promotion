@@ -64,7 +64,8 @@ const ModalConfirmPaymentGuestWithdraw = (props) => {
           <br />
           {`STK Của khách: ${idBankName} - ${idBank}`}
           <br />
-          Bạn muôn rút cho khách {nameGetConfirm.id_price_withdraw} VNĐ
+          Bạn muôn rút cho khách{" "}
+          {Number(nameGetConfirm.id_price_withdraw).toLocaleString("en-US")} VNĐ
           <br />
         </Modal.Body>
         <Modal.Footer>

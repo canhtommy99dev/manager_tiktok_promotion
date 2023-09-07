@@ -1,0 +1,13 @@
+label {
+  cursor: pointer;
+}
+
+.upload-photo {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+img {
+  object-fit: cover;
+}

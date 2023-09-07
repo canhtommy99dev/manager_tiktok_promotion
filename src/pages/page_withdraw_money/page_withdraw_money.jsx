@@ -57,9 +57,11 @@ export default function PageWithDrawMoney() {
             <TableRow>
               <TableCell>Id Rút Tiền</TableCell>
               <TableCell align="right">Id User</TableCell>
-              <TableCell align="right">Số tiền rút</TableCell>
+              <TableCell align="right">Số điện thoại</TableCell>
               <TableCell align="right">Trạng thái</TableCell>
               <TableCell align="right">Ngày</TableCell>
+              <TableCell align="right">Người dùng</TableCell>
+              <TableCell align="right">Số tiền rút</TableCell>
               <TableCell align="right">Thực hiện</TableCell>
             </TableRow>
           </TableHead>
@@ -73,9 +75,13 @@ export default function PageWithDrawMoney() {
                   {row.id}
                 </TableCell>
                 <TableCell align="right">{row.id_user_money}</TableCell>
-                <TableCell align="right">{row.id_price_withdraw}</TableCell>
+                <TableCell align="right">{row.phone_number}</TableCell>
                 <TableCell align="right">{row.status}</TableCell>
                 <TableCell align="right">{row.date_create_at}</TableCell>
+                <TableCell align="right">{row.user_guest}</TableCell>
+                <TableCell align="right">
+                  {Number(row.id_price_withdraw).toLocaleString("en-US")} VNĐ
+                </TableCell>
                 <TableCell align="right">
                   {row.status === "Loading Withdraw" ? (
                     <Button
