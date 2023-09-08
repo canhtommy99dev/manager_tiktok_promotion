@@ -216,19 +216,23 @@ const ModalAddNew = (props) => {
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={category}
-                  label="Cấp bậc"
+                  label="Danh Mục"
                   onChange={handleChange}
                 >
-                  <MenuItem value={"Phổ thông"}>Phổ thông</MenuItem>
-                  <MenuItem value={"Tiểu thương"}>Tiểu thương</MenuItem>
-                  <MenuItem value={"Thương Gia"}>Thương Gia</MenuItem>
-                  <MenuItem value={"Đại lý tiktok"}>Đại lý tiktok</MenuItem>
-                  <MenuItem value={"Doanh nghiệp"}>Doanh nghiệp</MenuItem>
-                  <MenuItem value={"VIP"}>VIP</MenuItem>
+                  <MenuItem value={"Thời trang"}>Thời trang </MenuItem>
+                  <MenuItem value={"Mỹ phẩm"}>Mỹ phẩm </MenuItem>
+                  <MenuItem value={"Đồ ăn, đồ uống"}>Đồ ăn, đồ uống </MenuItem>
+                  <MenuItem value={"Đồ decor nhà cửa"}>
+                    Đồ decor nhà cửa
+                  </MenuItem>
+                  <MenuItem value={"Đồ gia dụng"}>Đồ gia dụng</MenuItem>
+                  <MenuItem value={"Phụ kiện điện thoại"}>
+                    Phụ kiện điện thoại
+                  </MenuItem>
+                  <MenuItem value={"Đồ điện tử"}>Đồ điện tử</MenuItem>
                 </Select>
               </FormControl>
             </Box>
-            <label className="form-label">Gắn đơn VIP</label>{" "}
             {/* <Checkbox
               {...label}
               defaultChecked={vipChange}
