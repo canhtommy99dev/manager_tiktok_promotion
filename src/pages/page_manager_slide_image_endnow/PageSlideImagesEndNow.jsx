@@ -48,7 +48,7 @@ export default function PageSlideImagesEndNow() {
     <div>
       <br />
       <div className="title_style">
-        <h3>Slide Banner</h3>
+        <h3>ƯU ĐÃI DANH SÁCH</h3>
         <Button variant="contained" onClick={() => setIsShowModalAddNew(true)}>
           Thêm Slide
         </Button>
