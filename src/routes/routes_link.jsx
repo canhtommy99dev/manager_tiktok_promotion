@@ -18,6 +18,7 @@ import PageSlideImages from "../pages/page_manager_slide_image/PageSlideImages";
 import PageWithDrawMoney from "../pages/page_withdraw_money/page_withdraw_money";
 import PageNotification from "../pages/page_manager_notification/PageSlideNotification";
 import PageManagerProductionInHomePages from "../pages/page_manager_production_in_home_page/PageManagerProductionInHomePages";
+import PageSlideImagesEndNow from "../pages/page_manager_slide_image_endnow/PageSlideImagesEndNow";
 
 export default function RoutesLinkApi() {
   return (
@@ -118,6 +119,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageManagerProductionInHomePages />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/manager_slide_endnow"
+          element={
+            <PrivateRouter>
+              <PageSlideImagesEndNow />
             </PrivateRouter>
           }
         />

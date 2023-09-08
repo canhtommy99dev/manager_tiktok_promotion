@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import { Button, Modal } from "react-bootstrap";
 import { putAPIChangeMoney } from "../../../services/HistoryTransaction";
 import { toast } from "react-toastify";

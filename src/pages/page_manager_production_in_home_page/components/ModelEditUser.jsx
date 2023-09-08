@@ -5,7 +5,7 @@ import {
   uploadImage,
   putInProduction,
   deleteFile,
-} from "../../../services/PromotionServices";
+} from "../../../services/PromotionServiceHomePage";
 import { toast } from "react-toastify";
 import "./styles.css";
 ///

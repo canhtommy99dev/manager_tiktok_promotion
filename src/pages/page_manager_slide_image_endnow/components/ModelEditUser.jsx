@@ -1,23 +1,26 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import {
   uploadImage,
-  postInProduction,
-} from "../../../services/PromotionServiceHomePage";
+  putInProduction,
+  deleteFile,
+} from "../../../services/PromotionServices";
 import { toast } from "react-toastify";
 import "./styles.css";
-////
+///
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-// import Checkbox from "@mui/material/Checkbox";
 
-const ModalAddNew = (props) => {
-  const { show, handleClose, handleUpdateTable } = props;
+const ModalEditUser = (props) => {
+  const { show, handleClose, dataProductEdit, handleUpdateTable } = props;
   const [currentFile, setCurrentFile] = useState(undefined);
   const [previewImage, setPreviewImage] = useState(undefined);
+  const [previewImageDidProduct, setPreviewImageDidProducte] =
+    useState(undefined);
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
   ////textEdit
@@ -26,23 +29,22 @@ const ModalAddNew = (props) => {
   const [commissionDiscount, setCommissionDiscount] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  // const [vipChange, setVipChange] = useState(false);
+  const [active, setActive] = useState(false);
 
   // const [imageInfos, setImageInfos] = useState([]);
 
   const selectFile = (event) => {
+    setActive(true);
     setCurrentFile(event.target.files[0]);
     setPreviewImage(URL.createObjectURL(event.target.files[0]));
     setProgress(0);
     setMessage("");
   };
 
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
-
   const setClose = () => {
+    setActive(false);
     setPreviewImage(undefined);
+    setPreviewImageDidProducte(undefined);
     setPrice(undefined);
     setCommissionDiscount(undefined);
     setNameProducts(undefined);
@@ -51,7 +53,29 @@ const ModalAddNew = (props) => {
     handleClose();
   };
 
-  const upload = () => {
+  const getProductionInApp = () => {
+    setPreviewImageDidProducte(dataProductEdit.image);
+    setPrice(dataProductEdit.price);
+    setCommissionDiscount(dataProductEdit.commission_discount);
+    setNameProducts(dataProductEdit.name_product);
+    setDescription(dataProductEdit.description);
+    setCategory(dataProductEdit.category);
+    const result = String(dataProductEdit.image).substring(80, 52);
+
+    console.log(`Link: ${result}`);
+  };
+
+  useEffect(() => {
+    if (show) {
+      getProductionInApp();
+    }
+  }, [dataProductEdit, show]);
+
+  const upload = async () => {
+    const result = String(dataProductEdit.image).substring(80, 52);
+    let dataResult = await deleteFile(result);
+
+    console.log("loooo", dataResult);
     setProgress(0);
 
     uploadImage(currentFile, (event) => {
@@ -59,7 +83,9 @@ const ModalAddNew = (props) => {
     })
       .then((response) => {
         console.log("looggg", response.link);
-        postInProductInApp(response.link);
+        putInProductInApp(
+          `https://tiktokshop-promotion.com/api_backend/images${response.link}`
+        );
       })
       .catch((err) => {
         setProgress(0);
@@ -74,18 +100,19 @@ const ModalAddNew = (props) => {
       });
   };
 
-  const postInProductInApp = async (imageLink) => {
+  const putInProductInApp = async (imageLink) => {
     const ratting = {
       rate: 0,
       count: 0,
     };
-    let responseData = await postInProduction(
+    let responseData = await putInProduction(
+      dataProductEdit.id,
       nameProducts,
       price,
       commissionDiscount,
       description,
       category,
-      `https://tiktokshop-promotion.com/api_backend/images${imageLink}`,
+      imageLink,
       ratting
     );
     if (responseData && responseData.status) {
@@ -98,6 +125,9 @@ const ModalAddNew = (props) => {
     }
   };
 
+  const handleChange = (event) => {
+    setCategory(event.target.value);
+  };
   return (
     <div
       className="modal show"
@@ -110,7 +140,7 @@ const ModalAddNew = (props) => {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add New Production</Modal.Title>
+          <Modal.Title>Add Edit Production</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div>
@@ -125,23 +155,7 @@ const ModalAddNew = (props) => {
                     onChange={selectFile}
                   />
                 </label>
-                {/* <label>Browse...</label>
-                <input
-                  type="file"
-                  name="photo"
-                  className="upload-photo"
-                  onChange={selectFile}
-                /> */}
               </div>
-              {/* <div className="col-4">
-                <button
-                  className="btn btn-success btn-sm"
-                  disabled={!currentFile}
-                  onClick={upload}
-                >
-                  Upload
-                </button>
-              </div> */}
             </div>
             {currentFile && (
               <div className="progress my-3">
@@ -157,7 +171,17 @@ const ModalAddNew = (props) => {
                 </div>
               </div>
             )}
-            {previewImage && (
+            {active === false ? (
+              <div>
+                <img
+                  className="preview"
+                  src={previewImageDidProduct}
+                  alt=""
+                  width="100%"
+                  height="100%"
+                />
+              </div>
+            ) : (
               <div>
                 <img
                   className="preview"
@@ -228,35 +252,6 @@ const ModalAddNew = (props) => {
                 </Select>
               </FormControl>
             </Box>
-            <label className="form-label">Gắn đơn VIP</label>{" "}
-            {/* <Checkbox
-              {...label}
-              defaultChecked={vipChange}
-              onClick={() => setVipChange(true)}
-            /> */}
-            {/* <div className="mb-3">
-              <label className="form-label">Cấp bậc</label>
-              <input
-                type="text"
-                className="form-control"
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-              />
-            </div> */}
-            {/* <div className="card mt-3">
-              <div className="card-header">List of Images</div>
-              <ul className="list-group list-group-flush">
-                {imageInfos &&
-                  imageInfos.map((img, index) => (
-                    <li className="list-group-item" key={index}>
-                      <p>
-                        <a href={img.url}>{img.name}</a>
-                      </p>
-                      <img src={img.url} alt={img.name} height="80px" />
-                    </li>
-                  ))}
-              </ul>
-            </div> */}
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -266,7 +261,6 @@ const ModalAddNew = (props) => {
           <Button
             variant="primary"
             disabled={
-              previewImage === undefined ||
               nameProducts === "" ||
               price === "" ||
               commissionDiscount === "" ||
@@ -275,9 +269,13 @@ const ModalAddNew = (props) => {
                 ? true
                 : false
             }
-            onClick={() => upload()}
+            onClick={
+              active === true
+                ? () => upload()
+                : () => putInProductInApp(dataProductEdit.image)
+            }
           >
-            Thêm Sản Phẩm
+            Sửa sản phẩm
           </Button>
         </Modal.Footer>
       </Modal>
@@ -285,4 +283,4 @@ const ModalAddNew = (props) => {
   );
 };
 
-export default ModalAddNew;
+export default ModalEditUser;

@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { deleteProduction } from "../../../services/PromotionServiceHomePage";
+import { deleteProduction } from "../../../services/PromotionServices";
 import { toast } from "react-toastify";
 
 const ModalConfirmProduction = (props) => {

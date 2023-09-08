@@ -1,17 +1,10 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import {
-  uploadImage,
-  postInProduction,
-} from "../../../services/PromotionServiceHomePage";
+import { uploadImage } from "../../../services/PromotionServices";
+import { postListBanner } from "../../../services/SlideAdsEndNow";
 import { toast } from "react-toastify";
 import "./styles.css";
 ////
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 // import Checkbox from "@mui/material/Checkbox";
 
 const ModalAddNew = (props) => {
@@ -21,11 +14,8 @@ const ModalAddNew = (props) => {
   const [progress, setProgress] = useState(0);
   const [message, setMessage] = useState("");
   ////textEdit
-  const [nameProducts, setNameProducts] = useState("");
-  const [price, setPrice] = useState("");
-  const [commissionDiscount, setCommissionDiscount] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [nameTitle, setNameTitle] = useState("");
+  const [content, setContent] = useState("");
   // const [vipChange, setVipChange] = useState(false);
 
   // const [imageInfos, setImageInfos] = useState([]);
@@ -37,17 +27,10 @@ const ModalAddNew = (props) => {
     setMessage("");
   };
 
-  const handleChange = (event) => {
-    setCategory(event.target.value);
-  };
-
   const setClose = () => {
     setPreviewImage(undefined);
-    setPrice(undefined);
-    setCommissionDiscount(undefined);
-    setNameProducts(undefined);
-    setDescription(undefined);
-    setCategory(undefined);
+    setNameTitle(undefined);
+    setContent(undefined);
     handleClose();
   };
 
@@ -75,20 +58,12 @@ const ModalAddNew = (props) => {
   };
 
   const postInProductInApp = async (imageLink) => {
-    const ratting = {
-      rate: 0,
-      count: 0,
-    };
-    let responseData = await postInProduction(
-      nameProducts,
-      price,
-      commissionDiscount,
-      description,
-      category,
+    let responseData = await postListBanner(
+      nameTitle,
       `https://tiktokshop-promotion.com/api_backend/images${imageLink}`,
-      ratting
+      content
     );
-    if (responseData && responseData.status) {
+    if (responseData) {
       handleClose();
       handleUpdateTable();
       toast.success("A user success");
@@ -174,89 +149,23 @@ const ModalAddNew = (props) => {
               </div>
             )}
             <div className="mb-3">
-              <label className="form-label">Tên Sản Phẩm</label>
+              <label className="form-label">Tên Tiêu Đề</label>
               <input
                 type="text"
                 className="form-control"
-                value={nameProducts}
-                onChange={(event) => setNameProducts(event.target.value)}
+                value={nameTitle}
+                onChange={(event) => setNameTitle(event.target.value)}
               />
             </div>
             <div className="mb-3">
-              <label className="form-label">Giá Sản Phẩm (VND)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={price}
-                onChange={(event) => setPrice(event.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Hoa Hồng (VND)</label>
-              <input
-                type="number"
-                className="form-control"
-                value={commissionDiscount}
-                onChange={(event) => setCommissionDiscount(event.target.value)}
-              />
-            </div>
-            <div className="mb-3">
-              <label className="form-label">Nội Dung Sản Phẩm</label>
+              <label className="form-label">Content</label>
               <input
                 type="text"
                 className="form-control"
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
               />
             </div>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Cấp Bậc</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={category}
-                  label="Cấp bậc"
-                  onChange={handleChange}
-                >
-                  <MenuItem value={"Phổ thông"}>Phổ thông</MenuItem>
-                  <MenuItem value={"Tiểu thương"}>Tiểu thương</MenuItem>
-                  <MenuItem value={"Thương Gia"}>Thương Gia</MenuItem>
-                  <MenuItem value={"Đại lý tiktok"}>Đại lý tiktok</MenuItem>
-                  <MenuItem value={"Doanh nghiệp"}>Doanh nghiệp</MenuItem>
-                  <MenuItem value={"VIP"}>VIP</MenuItem>
-                </Select>
-              </FormControl>
-            </Box>
-            <label className="form-label">Gắn đơn VIP</label>{" "}
-            {/* <Checkbox
-              {...label}
-              defaultChecked={vipChange}
-              onClick={() => setVipChange(true)}
-            /> */}
-            {/* <div className="mb-3">
-              <label className="form-label">Cấp bậc</label>
-              <input
-                type="text"
-                className="form-control"
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-              />
-            </div> */}
-            {/* <div className="card mt-3">
-              <div className="card-header">List of Images</div>
-              <ul className="list-group list-group-flush">
-                {imageInfos &&
-                  imageInfos.map((img, index) => (
-                    <li className="list-group-item" key={index}>
-                      <p>
-                        <a href={img.url}>{img.name}</a>
-                      </p>
-                      <img src={img.url} alt={img.name} height="80px" />
-                    </li>
-                  ))}
-              </ul>
-            </div> */}
           </div>
         </Modal.Body>
         <Modal.Footer>
@@ -266,18 +175,13 @@ const ModalAddNew = (props) => {
           <Button
             variant="primary"
             disabled={
-              previewImage === undefined ||
-              nameProducts === "" ||
-              price === "" ||
-              commissionDiscount === "" ||
-              description === "" ||
-              category === ""
+              previewImage === undefined || nameTitle === "" || content === ""
                 ? true
                 : false
             }
             onClick={() => upload()}
           >
-            Thêm Sản Phẩm
+            Thêm
           </Button>
         </Modal.Footer>
       </Modal>
