@@ -52,10 +52,44 @@ const postPriceMoney = (id, coin_payment, calculator) => {
   );
 };
 
+const listUserInHomePagiation = (page) => {
+  return instantExportsAPIAXIOS.get(
+    `/api_backend/get_manager_web_userlist?page=${page}&size=25`
+  );
+};
+
+const updatePasswordkey = (idToken, passwordReset) => {
+  return instantExportsAPIAXIOS.put(`/api_backend/reset_password/${idToken}`, {
+    password: passwordReset,
+  });
+};
+
+const updatePrice = (idToken, coinUpdate) => {
+  return instantExportsAPIAXIOS.put(
+    `/api_backend/update_coin_guest/${idToken}`,
+    {
+      coinUpdate: coinUpdate,
+    }
+  );
+};
+
+const updatePasswordPin = (idToken) => {
+  return instantExportsAPIAXIOS.put(`/api_backend/reset_passpin/${idToken}`);
+};
+
+const updateResetBank = (idToken) => {
+  return instantExportsAPIAXIOS.put(`/api_backend/reset_bankuser/${idToken}`);
+};
+
 export {
   getProfileList,
   postUserRegister,
   getUserGuestId,
   postUserAPI,
   postPriceMoney,
+  listUserInHomePagiation,
+  updatePasswordkey,
+  updatePasswordPin,
+  updateResetBank,
+  updatePrice,
 };

@@ -7,12 +7,20 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { TextField } from "@mui/material";
+import {
+  Container,
+  InputAdornment,
+  TextField,
+  IconButton,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+
 import { useNavigate } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 import "./myCss.css";
 
-import { getProfileList } from "../../services/ProfileServices";
+import { listUserInHomePagiation } from "../../services/ProfileServices";
 import { useEffect } from "react";
 import { useState } from "react";
 import ModalAddUser from "./components/modalAddUser";
@@ -21,10 +29,11 @@ export default function PageManagerProfile() {
   const [listProfile, setListProfile] = useState([]);
   const [nameAccounnt, setNameAccounnt] = useState("");
   const [isShowModalAddUser, setIsShowModalAddUser] = useState(false);
+  const [totalProductPage, setTotalProductPage] = useState(0);
 
   useEffect(() => {
-    getInProlist();
-  });
+    getInProlist(1);
+  }, []);
 
   const handleCloseShow = () => {
     setIsShowModalAddUser(false);
@@ -32,9 +41,10 @@ export default function PageManagerProfile() {
     // setIsShowModalDeleteId(false);
   };
 
-  const getInProlist = async () => {
-    const res = await getProfileList();
-    setListProfile(res.results);
+  const getInProlist = async (page) => {
+    const res = await listUserInHomePagiation(page);
+    setListProfile(res.listPage);
+    setTotalProductPage(res.totalPages);
   };
 
   let inputHandler = (e) => {
@@ -49,31 +59,51 @@ export default function PageManagerProfile() {
     navigate(`/profile_guest/${getId}`);
   };
 
-  const filteredData = listProfile.filter((itemList) => {
-    //if no input the return the original
-    if (nameAccounnt === "") {
-      return itemList;
-    }
-    //return the item which contains the user input
-    else {
-      return itemList.phone_number.toLowerCase().includes(nameAccounnt);
-    }
-  });
+  // const filteredData = listProfile.filter((itemList) => {
+  //   //if no input the return the original
+  //   if (nameAccounnt === "") {
+  //     return itemList;
+  //   }
+  //   //return the item which contains the user input
+  //   else {
+  //     return itemList.phone_number.toLowerCase().includes(nameAccounnt);
+  //   }
+  // });
+
+  const appEventSearch = () => {
+    console.log(`eeee ${nameAccounnt}`);
+  };
+
+  const handlePageClick = (event) => {
+    getInProlist(event.selected + 1);
+  };
 
   return (
     <div>
       <br />
       <div className="searchText">
-        <TextField
-          id="search-bar"
-          className="text"
-          label="Tìm Số Điện thoại"
-          variant="outlined"
-          placeholder="Tìm..."
-          size="small"
-          fullWidth
-          onChange={inputHandler}
-        />
+        <Container maxWidth="md" sx={{ mt: 0 }}>
+          <TextField
+            id="search"
+            type="search"
+            label="Search"
+            onKeyDown={(ev) => {
+              if (ev.key === "Enter") {
+                appEventSearch();
+                ev.preventDefault();
+              }
+            }}
+            onChange={(event) => setNameAccounnt(event.target.value)}
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon onClick={() => appEventSearch()} />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Container>
       </div>
       <Button
         variant="contained"
@@ -96,11 +126,12 @@ export default function PageManagerProfile() {
                 <TableCell align="left">Địa Chỉ</TableCell>
                 <TableCell align="left">Cấp bậc</TableCell>
                 <TableCell align="left">Đơn Hàng Vip</TableCell>
+                <TableCell align="left">Tiến trình giao dịch</TableCell>
                 <TableCell align="left">Thao tác</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredData.map((item) => (
+              {listProfile.map((item) => (
                 <TableRow
                   key={item.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -109,11 +140,16 @@ export default function PageManagerProfile() {
                     {item.phone_number}
                   </TableCell>
                   <TableCell align="left">{item.code_intro}</TableCell>
-                  <TableCell align="left">{item.coin_user}</TableCell>
+                  <TableCell align="left">
+                    {Number(item.coin_user).toLocaleString("en-US")} VNĐ
+                  </TableCell>
                   <TableCell align="left">{item.user_name}</TableCell>
                   <TableCell align="left">{item.address}</TableCell>
                   <TableCell align="left">{item.vip_change}</TableCell>
                   <TableCell align="left">{item.pending_send}</TableCell>
+                  <TableCell align="left">
+                    {item.dataVipChange.lenghtMatch}
+                  </TableCell>
                   <TableCell align="left">
                     <Button
                       variant="contained"
@@ -132,6 +168,25 @@ export default function PageManagerProfile() {
             </TableBody>
           </Table>
         </TableContainer>
+        <ReactPaginate
+          nextLabel="Sau"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          pageCount={totalProductPage}
+          previousLabel="Trước"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+        />
       </div>
       <ModalAddUser
         show={isShowModalAddUser}

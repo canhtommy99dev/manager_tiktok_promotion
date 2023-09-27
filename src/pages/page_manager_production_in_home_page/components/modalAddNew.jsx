@@ -211,7 +211,7 @@ const ModalAddNew = (props) => {
             </div>
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Cấp Bậc</InputLabel>
+                <InputLabel id="demo-simple-select-label">Danh Mục</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
