@@ -20,7 +20,10 @@ import ReactPaginate from "react-paginate";
 
 import "./myCss.css";
 
-import { listUserInHomePagiation } from "../../services/ProfileServices";
+import {
+  listUserInHomePagiation,
+  listUserInHomePagiationKeyword,
+} from "../../services/ProfileServices";
 import { useEffect } from "react";
 import { useState } from "react";
 import ModalAddUser from "./components/modalAddUser";
@@ -32,7 +35,7 @@ export default function PageManagerProfile() {
   const [totalProductPage, setTotalProductPage] = useState(0);
 
   useEffect(() => {
-    getInProlist(1);
+    getInProlist(1, "");
   }, []);
 
   const handleCloseShow = () => {
@@ -41,8 +44,8 @@ export default function PageManagerProfile() {
     // setIsShowModalDeleteId(false);
   };
 
-  const getInProlist = async (page) => {
-    const res = await listUserInHomePagiation(page);
+  const getInProlist = async (page, keyWord) => {
+    const res = await listUserInHomePagiationKeyword(page, keyWord);
     setListProfile(res.listPage);
     setTotalProductPage(res.totalPages);
   };
@@ -71,7 +74,8 @@ export default function PageManagerProfile() {
   // });
 
   const appEventSearch = () => {
-    console.log(`eeee ${nameAccounnt}`);
+    console.log(`eeeeSeacrh ${nameAccounnt}`);
+    getInProlist(1, `${nameAccounnt}`);
   };
 
   const handlePageClick = (event) => {

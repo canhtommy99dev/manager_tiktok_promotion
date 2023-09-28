@@ -58,6 +58,12 @@ const listUserInHomePagiation = (page) => {
   );
 };
 
+const listUserInHomePagiationKeyword = (page, searchKey) => {
+  return instantExportsAPIAXIOS.get(
+    `/api_backend/get_search_user?page=${page}&size=25&key_search=${searchKey}`
+  );
+};
+
 const updatePasswordkey = (idToken, passwordReset) => {
   return instantExportsAPIAXIOS.put(`/api_backend/reset_password/${idToken}`, {
     password: passwordReset,
@@ -92,4 +98,5 @@ export {
   updatePasswordPin,
   updateResetBank,
   updatePrice,
+  listUserInHomePagiationKeyword,
 };
