@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
@@ -42,24 +43,28 @@ export default function PageManagerProductionInHomePages() {
   };
 
   useEffect(() => {
-    getListPromotion(1);
+    loadingData();
   }, []);
 
   const handlePageClick = (event) => {
     getListPromotion(event.selected + 1);
   };
 
+  const loadingData = async () => {
+    await getListPromotion(1);
+  };
+
   return (
     <div>
       <div className="my-3 add-new">
         <span>
-          <b>List User:</b>
+          <b>Danh sách sản phẩm:</b>
         </span>
         <button
           className="btn btn-success"
           onClick={() => setIsShowModalAddNew(true)}
         >
-          Add Production
+          Thêm sản phẩm trang chủ
         </button>
       </div>
       <Table striped bordered hover>
@@ -71,6 +76,8 @@ export default function PageManagerProductionInHomePages() {
             <th>Giảm giá</th>
             <th>Danh Mục</th>
             <th>Hình Ảnh</th>
+            <th>Đánh Giá</th>
+            <th>Số lượng người mua</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -88,6 +95,7 @@ export default function PageManagerProductionInHomePages() {
                     VNĐ
                   </td>
                   <td>{item.category}</td>
+
                   <td>
                     <img
                       src={item.image}
@@ -96,6 +104,8 @@ export default function PageManagerProductionInHomePages() {
                       object-fit="cover"
                     />
                   </td>
+                  <td>{item.rating.rate}</td>
+                  <td>{item.rating.count}</td>
                   <td>
                     <Button
                       variant="warning"
@@ -137,19 +147,19 @@ export default function PageManagerProductionInHomePages() {
       <ModalAddNew
         show={isShowModalAddNew}
         handleClose={handleCloseShow}
-        handleUpdateTable={getListPromotion}
+        handleUpdateTable={loadingData}
       />
       <ModalEditUser
         show={isShowModalEditProduct}
         handleClose={handleCloseShow}
-        handleUpdateTable={getListPromotion}
+        handleUpdateTable={loadingData}
         dataProductEdit={dataProductionEdit}
       />
       <ModalConfirmProduction
         show={isShowModalDeleteId}
         handleClose={handleCloseShow}
         nameGetDelete={dataProductionDelete}
-        handleUpdateTable={getListPromotion}
+        handleUpdateTable={loadingData}
       />
     </div>
   );

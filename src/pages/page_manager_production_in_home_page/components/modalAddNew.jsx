@@ -51,6 +51,10 @@ const ModalAddNew = (props) => {
     handleClose();
   };
 
+  const randomNumberInRange = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
   const upload = () => {
     setProgress(0);
 
@@ -76,8 +80,8 @@ const ModalAddNew = (props) => {
 
   const postInProductInApp = async (imageLink) => {
     const ratting = {
-      rate: 0,
-      count: 0,
+      rate: randomNumberInRange(1, 5),
+      count: randomNumberInRange(1000, 5000),
     };
     let responseData = await postInProduction(
       nameProducts,
@@ -91,10 +95,10 @@ const ModalAddNew = (props) => {
     if (responseData && responseData.status) {
       handleClose();
       handleUpdateTable();
-      toast.success("A user success");
+      toast.success("A product success");
     } else {
       ///error
-      toast.error("A user faliled");
+      toast.error("A product faliled");
     }
   };
 
