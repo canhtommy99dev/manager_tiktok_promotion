@@ -29,7 +29,7 @@ function LoginApp() {
     if (!email || !password) {
       toast.error("Email/Password phải nhập đầy đủ");
       return;
-    } else if (email === "root" && password === "root123") {
+    } else if (email === "Admin" && password === "Tiktokshop368") {
       toast.success("Bạn đã đăng nhập quản trị");
       loginContext("root", tokenAdmin);
       navigate("/");
