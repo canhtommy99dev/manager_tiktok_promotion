@@ -7,9 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Button } from "@mui/material";
+import { Form } from "react-bootstrap";
 import "./components/styles.css";
+import ReactPaginate from "react-paginate";
 
-import { getListMoneyWithDraw } from "../../services/HistoryTransaction";
+import {
+  getListMoneyWithDraw,
+  getListPageWithdrawMoney,
+} from "../../services/HistoryTransaction";
 import ModalConfirmPaymentGuestWithdraw from "./components/ModelConfirmPaymentGuestWithdraw";
 
 export default function PageWithDrawMoney() {
@@ -18,14 +23,17 @@ export default function PageWithDrawMoney() {
   const [dataGetEdit, setdataGetEdit] = useState({});
   const [dataGetNameBank, setDataGetNameBank] = useState("");
   const [idBankName, setBankName] = useState("");
+  const [textKeyFind, setTextKeyFind] = useState("");
+  const [totalProductPage, setTotalProductPage] = useState(0);
 
   useEffect(() => {
-    getAPIPrice();
+    getAPIPrice(1, textKeyFind);
   }, []);
 
-  const getAPIPrice = async () => {
-    let resPrice = await getListMoneyWithDraw();
-    setListPriceWithDraw(resPrice.results);
+  const getAPIPrice = async (page, keySearch) => {
+    let resPrice = await getListPageWithdrawMoney(page, keySearch);
+    setListPriceWithDraw(resPrice.listPage);
+    setTotalProductPage(resPrice.totalPages);
   };
 
   // const getOpenChange = () => {
@@ -44,12 +52,34 @@ export default function PageWithDrawMoney() {
     setIsShowModal(false);
   };
 
+  const appEventSearch = () => {
+    getAPIPrice(1, textKeyFind);
+  };
+
+  const handlePageClick = (event) => {
+    getAPIPrice(event.selected + 1, textKeyFind);
+  };
+
   return (
     <div>
       <br />
       <div className="title_style">
         <h3>Danh Sách Khách Hàng Rút tiền</h3>
       </div>
+      <Form.Control
+        type="text"
+        placeholder="Tìm kiếm sản phẩm"
+        aria-describedby="passwordHelpBlock"
+        onChange={(e) => {
+          setTextKeyFind(e.target.value);
+        }}
+        onKeyDown={(ev) => {
+          if (ev.key === "Enter") {
+            ev.preventDefault();
+            appEventSearch();
+          }
+        }}
+      />
       <hr />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -99,6 +129,25 @@ export default function PageWithDrawMoney() {
           </TableBody>
         </Table>
       </TableContainer>
+      <ReactPaginate
+        nextLabel="Sau"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={totalProductPage}
+        previousLabel="Trước"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"
+      />
       <ModalConfirmPaymentGuestWithdraw
         show={isShowModal}
         handleClose={handleCloseShow}

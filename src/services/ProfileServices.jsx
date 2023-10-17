@@ -87,6 +87,12 @@ const updateResetBank = (idToken) => {
   return instantExportsAPIAXIOS.put(`/api_backend/reset_bankuser/${idToken}`);
 };
 
+const deleteIdToken = (idToken) => {
+  return instantExportsAPIAXIOS.delete(
+    `/api_backend/delete_phone_user/${idToken}`
+  );
+};
+
 export {
   getProfileList,
   postUserRegister,
@@ -99,4 +105,5 @@ export {
   updateResetBank,
   updatePrice,
   listUserInHomePagiationKeyword,
+  deleteIdToken,
 };

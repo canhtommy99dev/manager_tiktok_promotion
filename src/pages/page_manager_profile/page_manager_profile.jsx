@@ -23,6 +23,7 @@ import "./myCss.css";
 import {
   listUserInHomePagiation,
   listUserInHomePagiationKeyword,
+  deleteIdToken,
 } from "../../services/ProfileServices";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -35,7 +36,7 @@ export default function PageManagerProfile() {
   const [totalProductPage, setTotalProductPage] = useState(0);
 
   useEffect(() => {
-    getInProlist(1, "");
+    getInProlist(1, nameAccounnt);
   }, []);
 
   const handleCloseShow = () => {
@@ -80,6 +81,11 @@ export default function PageManagerProfile() {
 
   const handlePageClick = (event) => {
     getInProlist(event.selected + 1);
+  };
+
+  const handleClickDelete = async (id) => {
+    await deleteIdToken(id);
+    getInProlist(1, `${nameAccounnt}`);
   };
 
   return (
@@ -163,7 +169,11 @@ export default function PageManagerProfile() {
                       Sửa
                     </Button>
                     {"  "}
-                    <Button variant="contained" color="success">
+                    <Button
+                      variant="contained"
+                      color="success"
+                      onClick={() => handleClickDelete(item.id)}
+                    >
                       Xoá
                     </Button>
                   </TableCell>

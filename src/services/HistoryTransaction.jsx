@@ -17,4 +17,15 @@ const putAPIChangeMoney = (id, priceMoney, idUser) => {
   });
 };
 
-export { getPriceListPeople, getListMoneyWithDraw, putAPIChangeMoney };
+const getListPageWithdrawMoney = (page, keySearch) => {
+  return instantExportsAPIAXIOS.get(
+    `/api_backend/get_search_user_withdraw?page=${page}&size=30&key_search=${keySearch}`
+  );
+};
+
+export {
+  getPriceListPeople,
+  getListMoneyWithDraw,
+  putAPIChangeMoney,
+  getListPageWithdrawMoney,
+};
