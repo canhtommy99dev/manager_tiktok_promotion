@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
-import Table from "react-bootstrap/Table";
-import { ProductionTiktokPromotion } from "../../services/TransactionService";
+import { Button, Table, Form } from "react-bootstrap";
+import { getFindProduction } from "../../services/PromotionServices";
 import ModalAddNew from "./components/modalAddNew";
 import "./components/styles.css";
 import ModalEditUser from "./components/ModelEditUser";
 import ModalConfirmProduction from "./components/ModelConfirm";
+import ReactPaginate from "react-paginate";
 
 export default function PageManagerProduction() {
   const [listPromotion, setListPromotion] = useState([]);
@@ -15,6 +15,11 @@ export default function PageManagerProduction() {
   const [isShowModalDeleteId, setIsShowModalDeleteId] = useState(false);
   const [dataProductionEdit, setProductionEdit] = useState({});
   const [dataProductionDelete, setDataProductionDelete] = useState({});
+  const [totalProduct, setTotalProduct] = useState(0);
+  const [totalProductPage, setTotalProductPage] = useState(0);
+  ///
+  const [textKeyFind, setTextKeyFind] = useState("");
+  const [categoryFind, setTextCategoryFind] = useState("");
 
   const handleCloseShow = () => {
     setIsShowModalAddNew(false);
@@ -32,22 +37,37 @@ export default function PageManagerProduction() {
     setIsShowModalDeleteId(true);
   };
 
-  const getListPromotion = async () => {
-    let res = await ProductionTiktokPromotion();
-    if (res && res.results) {
-      setListPromotion(res.results);
+  const getListPromotion = async (keysearch, category, page) => {
+    let res = await getFindProduction(keysearch, category, page);
+    if (res && res.listPage) {
+      setListPromotion(res.listPage);
+      setTotalProductPage(res.totalPages);
+      setTotalProduct(res.total);
     }
   };
 
+  const handleChange = (e) => {
+    setTextCategoryFind(e.target.value);
+    getListPromotion(textKeyFind, e.target.value, 1);
+  };
+
+  const handlePageClick = (event) => {
+    getListPromotion(textKeyFind, categoryFind, event.selected + 1);
+  };
+
+  const appEventSearch = () => {
+    getListPromotion(textKeyFind, categoryFind, 1);
+  };
+
   useEffect(() => {
-    getListPromotion();
+    getListPromotion(textKeyFind, categoryFind, 1);
   }, []);
 
   return (
     <div>
       <div className="my-3 add-new">
         <span>
-          <b>List User:</b>
+          <b>Tổng sản phẩm: {totalProduct}</b>
         </span>
         <button
           className="btn btn-success"
@@ -56,6 +76,38 @@ export default function PageManagerProduction() {
           Add Production
         </button>
       </div>
+      <div className="my-3 ">
+        <Form.Control
+          type="text"
+          placeholder="Tìm kiếm sản phẩm"
+          aria-describedby="passwordHelpBlock"
+          onChange={(e) => {
+            setTextKeyFind(e.target.value);
+          }}
+          onKeyDown={(ev) => {
+            if (ev.key === "Enter") {
+              appEventSearch();
+              ev.preventDefault();
+            }
+          }}
+        />
+        <Form.Group controlId="formBasicSelect">
+          <Form.Label>Danh Mục</Form.Label>
+          <Form.Control
+            as="select"
+            value={categoryFind}
+            onChange={handleChange}
+          >
+            <option value="">Tất cả</option>
+            <option value="Phổ thông">Phổ thông</option>
+            <option value="Tiểu thương">Tiểu thương</option>
+            <option value="Thương Gia">Thương Gia</option>
+            <option value="Đại lý tiktok">Đại lý tiktok</option>
+            <option value="Doanh nghiệp">Doanh nghiệp</option>
+            <option value="VIP">VIP</option>
+          </Form.Control>
+        </Form.Group>
+      </div>
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -63,7 +115,6 @@ export default function PageManagerProduction() {
             <th>Product</th>
             <th>Price</th>
             <th>Thưởng</th>
-            <th>Tổng</th>
             <th>Cấp Bậc</th>
             <th>Hình Ảnh</th>
             <th>Action</th>
@@ -77,9 +128,11 @@ export default function PageManagerProduction() {
                 <tr key={`user-${index}`}>
                   <td>{item.id}</td>
                   <td>{item.name_product}</td>
-                  <td>{item.price}</td>
-                  <td>{item.commission_discount}</td>
-                  <td>{item.total_price}</td>
+                  <td>{Number(item.price).toLocaleString("en-US")} VNĐ</td>
+                  <td>
+                    {Number(item.commission_discount).toLocaleString("en-US")}{" "}
+                    VNĐ
+                  </td>
                   <td>{item.category}</td>
                   <td>
                     <img
@@ -108,6 +161,25 @@ export default function PageManagerProduction() {
             })}
         </tbody>
       </Table>
+      <ReactPaginate
+        nextLabel="Sau"
+        onPageChange={handlePageClick}
+        pageRangeDisplayed={3}
+        marginPagesDisplayed={2}
+        pageCount={totalProductPage}
+        previousLabel="Trước"
+        pageClassName="page-item"
+        pageLinkClassName="page-link"
+        previousClassName="page-item"
+        previousLinkClassName="page-link"
+        nextClassName="page-item"
+        nextLinkClassName="page-link"
+        breakLabel="..."
+        breakClassName="page-item"
+        breakLinkClassName="page-link"
+        containerClassName="pagination"
+        activeClassName="active"
+      />
       <ModalAddNew
         show={isShowModalAddNew}
         handleClose={handleCloseShow}

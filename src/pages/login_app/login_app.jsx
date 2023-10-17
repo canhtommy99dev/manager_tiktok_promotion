@@ -21,7 +21,7 @@ function LoginApp() {
     if (token) {
       navigate("/");
     }
-  });
+  }, []);
 
   const handleLogin = async () => {
     //

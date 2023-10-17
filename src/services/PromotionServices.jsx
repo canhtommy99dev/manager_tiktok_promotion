@@ -75,6 +75,12 @@ const getProductionInCode = (category) => {
   );
 };
 
+const getFindProduction = (keysearch, category, page) => {
+  return instantExportsAPIAXIOS.get(
+    `api_backend/get_search_production?page=${page}&size=25&key_search=${keysearch}&category=${category}`
+  );
+};
+
 export {
   uploadImage,
   postInProduction,
@@ -82,4 +88,5 @@ export {
   deleteFile,
   deleteProduction,
   getProductionInCode,
+  getFindProduction,
 };

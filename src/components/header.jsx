@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "./../context/useContext";
+import { UserContext } from "../context/useContext";
 
 import { toast } from "react-toastify";
 
@@ -44,7 +44,10 @@ const Header = (props) => {
                 </Nav.Link>
                 <NavDropdown title="Manager" id="basic-nav-dropdown">
                   <NavDropdown.Item href="/manager_price">
-                    Quản lý Nạp Rút
+                    Quản lý Nạp
+                  </NavDropdown.Item>
+                  <NavDropdown.Item href="/withdraw_manager">
+                    Quản lý Rút
                   </NavDropdown.Item>
                   <NavDropdown.Item href="/manager_transaction">
                     Quản lý giao dịch đơn hàng

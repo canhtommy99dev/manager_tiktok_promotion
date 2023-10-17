@@ -17,7 +17,7 @@ function App() {
       const email = localStorage.getItem("email");
       loginContext(email, token);
     }
-  });
+  }, []);
 
   return (
     <div className="app-container">
