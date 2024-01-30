@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import ModalAddMoney from "./components/modalAddMoney";
 import ModalPasswordNew from "./components/modalPasswordNew";
 import ModalUpdateMoney from "./components/modalEditMoney";
+import ModalEditBankOnCheck from "./components/modamEditBankOnCheck";
 
 const PageInfoProfile = () => {
   let { id } = useParams();
@@ -30,13 +31,18 @@ const PageInfoProfile = () => {
   const [isShowModalAddPrice, setIsShowModalAddPrice] = useState(false);
   const [isShowModalUpdatePrice, setIsShowModalUpdatePrice] = useState(false);
   const [isShowModalPassword, setIsShowModalPassword] = useState(false);
+  const [isShowModalUpdateBank, setIsShowModalUpdateBank] = useState(false);
   /////
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [passwordNew, setPasswordNew] = useState("");
+
   // const [setVip, setSetVip] = useState("");
   const [typeSet, setTypeSet] = useState("");
   const [price, setPrice] = useState("");
+  const [paymentBank, setPaymentBank] = useState({});
+  const [setNameAccountInternational, setSetNameAccountInternational] =
+    useState("");
 
   /////
   const [listProductVip, setListProductVip] = useState([]);
@@ -60,6 +66,7 @@ const PageInfoProfile = () => {
     setIsShowModalAddPrice(false);
     setIsShowModalPassword(false);
     setIsShowModalUpdatePrice(false);
+    setIsShowModalUpdateBank(false);
   };
 
   useEffect(() => {
@@ -76,8 +83,8 @@ const PageInfoProfile = () => {
     setTypeSet(resAPI.results.vip_change);
     setPrice(resAPI.results.coin_user);
     setStatusResults(resAPI.status);
-    // setStatusAPIdata(resAPI.results);
-    // setUserProfile(statusAPIdata);
+    setPaymentBank(resAPI.results.payment_bank);
+    setSetNameAccountInternational(resAPI.results.payment_bank.more_back);
   };
 
   const handleSumbit = async () => {
@@ -128,8 +135,13 @@ const PageInfoProfile = () => {
   const resetBank = async (id) => {
     let resAPI = await updateResetBank(id);
     if (resAPI) {
+      getAPIGuest();
       toast.success("Bạn đã Reset Ngân Hàng");
     }
+  };
+
+  const handleUpdateBank = async (id) => {
+    setIsShowModalUpdateBank(true);
   };
 
   function makeid(length) {
@@ -246,10 +258,35 @@ const PageInfoProfile = () => {
             >
               Reset Ngân Hàng
             </Button>
+            {"  "}
+            {paymentBank.account_name === undefined ? (
+              <></>
+            ) : (
+              <Button
+                variant="contained"
+                type="submit"
+                onClick={() => handleUpdateBank(id)}
+              >
+                Sửa tài khoản ngân hàng
+              </Button>
+            )}
           </div>
-
           <hr />
-
+          {paymentBank.account_name === undefined ? (
+            <>
+              <p>Chưa có tài khoản</p>
+            </>
+          ) : (
+            <div>
+              Tên tài khoản: {paymentBank.account_name}
+              <br />
+              Số tài khoản: {paymentBank.id_bank}
+              <br />
+              Ngân hàng: {paymentBank.more_back.name} -{" "}
+              {paymentBank.more_back.shortName}
+            </div>
+          )}
+          <hr />
           <Form.Group controlId="formBasicSelect">
             <Form.Label>Gài đơn VIP</Form.Label>
             <Form.Control
@@ -268,7 +305,6 @@ const PageInfoProfile = () => {
               })}
             </Form.Control>
           </Form.Group>
-
           <br />
           <Form.Group>
             <Form.Label>Cài thứ:</Form.Label>
@@ -343,6 +379,19 @@ const PageInfoProfile = () => {
         handleClose={handleCloseShow}
         handleUpdateTable={getAPIGuest}
       />
+      {paymentBank === undefined ? (
+        <div></div>
+      ) : (
+        <div>
+          <ModalEditBankOnCheck
+            idGet={id}
+            show={isShowModalUpdateBank}
+            handleClose={handleCloseShow}
+            handleUpdateTable={getAPIGuest}
+            myJSON={paymentBank}
+          />
+        </div>
+      )}
     </div>
   );
 };

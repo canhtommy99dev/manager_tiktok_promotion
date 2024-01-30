@@ -1,0 +1,19 @@
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.circular-image {
+  border-radius: 50%;
+  width: 30px; /* Adjust the size as needed */
+  height: 30px; /* Adjust the size as needed */
+  margin-right: 10px;
+  object-fit: contain;
+}
+.circular-image-big {
+  border-radius: 50%;
+  width: 100px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
+  object-fit: contain;
+}

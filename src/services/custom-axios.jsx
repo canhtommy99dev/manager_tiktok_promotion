@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://tiktokshop-promotion.com",
+  baseURL: "https://api.tiktokshopvn.org",
+  // baseURL: "",
 });
 
 instance.interceptors.response.use(

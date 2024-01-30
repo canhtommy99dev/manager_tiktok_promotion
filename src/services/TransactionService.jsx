@@ -1,15 +1,11 @@
 import instantExportsAPIAXIOS from "../services/custom-axios";
 
 const UserTransactionServices = () => {
-  return instantExportsAPIAXIOS.get(
-    `api_backend/getlisttotal_transaction_manager`
-  );
+  return instantExportsAPIAXIOS.get(`/getlisttotal_transaction_manager`);
 };
 
 const ProductionTiktokPromotion = () => {
-  return instantExportsAPIAXIOS.get(
-    `/api_backend/get_production_tiktok_promotion`
-  );
+  return instantExportsAPIAXIOS.get(`/get_production_tiktok_promotion`);
 };
 
 const putUpdateUser = (name, jobs) => {

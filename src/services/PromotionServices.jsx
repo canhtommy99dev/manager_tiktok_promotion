@@ -5,7 +5,7 @@ const uploadImage = (file, onUploadProgress) => {
 
   formData.append("file", file);
 
-  return instantExportsAPIAXIOS.post("/api_backend/upload", formData, {
+  return instantExportsAPIAXIOS.post("/upload", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -22,7 +22,7 @@ const postInProduction = (
   image,
   rating
 ) => {
-  return instantExportsAPIAXIOS.post(`/api_backend/add_production_app`, {
+  return instantExportsAPIAXIOS.post(`/add_production_app`, {
     name_product: name_product,
     price: price,
     commission_discount: commission_discount,
@@ -43,41 +43,36 @@ const putInProduction = (
   image,
   rating
 ) => {
-  return instantExportsAPIAXIOS.put(
-    `/api_backend/update_production_app/${id}`,
-    {
-      name_product: name_product,
-      price: price,
-      commission_discount: commission_discount,
-      description: description,
-      category: category,
-      image: image,
-      rating: rating,
-    }
-  );
+  return instantExportsAPIAXIOS.put(`/update_production_app/${id}`, {
+    name_product: name_product,
+    price: price,
+    commission_discount: commission_discount,
+    description: description,
+    category: category,
+    image: image,
+    rating: rating,
+  });
 };
 
 const deleteFile = (image) => {
-  return instantExportsAPIAXIOS.delete(`/api_backend/delefile`, {
+  return instantExportsAPIAXIOS.delete(`/delefile`, {
     image: image,
   });
 };
 
 const deleteProduction = (id) => {
-  return instantExportsAPIAXIOS.delete(
-    `/api_backend/delete_production_app/${id}`
-  );
+  return instantExportsAPIAXIOS.delete(`/delete_production_app/${id}`);
 };
 
 const getProductionInCode = (category) => {
   return instantExportsAPIAXIOS.get(
-    `/api_backend/find_product_category/?category=${category}`
+    `/find_product_category/?category=${category}`
   );
 };
 
 const getFindProduction = (keysearch, category, page) => {
   return instantExportsAPIAXIOS.get(
-    `api_backend/get_search_production?page=${page}&size=25&key_search=${keysearch}&category=${category}`
+    `/get_search_production?page=${page}&size=25&key_search=${keysearch}&category=${category}`
   );
 };
 

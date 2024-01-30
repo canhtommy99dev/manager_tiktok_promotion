@@ -1,7 +1,7 @@
 import instantExportsAPIAXIOS from "../services/custom-axios";
 
 const getProfileList = () => {
-  return instantExportsAPIAXIOS.get(`/api_backend/get_manager_in_profile`);
+  return instantExportsAPIAXIOS.get(`/get_manager_in_profile`);
 };
 
 const postUserRegister = (
@@ -11,86 +11,76 @@ const postUserRegister = (
   link_image_avatar,
   account_did_account
 ) => {
-  return instantExportsAPIAXIOS.post(
-    `/api_backend/register_user_tiktok_promotion`,
-    {
-      user_name: user_name,
-      password: password,
-      phone_number: phone_number,
-      link_image_avatar: link_image_avatar,
-      account_did_account: account_did_account,
-    }
-  );
+  return instantExportsAPIAXIOS.post(`/register_user_tiktok_promotion`, {
+    user_name: user_name,
+    password: password,
+    phone_number: phone_number,
+    link_image_avatar: link_image_avatar,
+    account_did_account: account_did_account,
+  });
 };
 
 const getUserGuestId = (id) => {
-  return instantExportsAPIAXIOS.get(
-    `/api_backend/get_accounts_tiktok_promotion/${id}`
-  );
+  return instantExportsAPIAXIOS.get(`/get_accounts_tiktok_promotion/${id}`);
 };
 
 const postUserAPI = (id, user_name, phone_number, set_vip) => {
-  return instantExportsAPIAXIOS.put(
-    `/api_backend/update_user_tiktok_promotion/${id}`,
-    {
-      username: user_name,
-      phone_number: phone_number,
-      image_link: "null",
-      set_vip: set_vip,
-    }
-  );
+  return instantExportsAPIAXIOS.put(`/update_user_tiktok_promotion/${id}`, {
+    username: user_name,
+    phone_number: phone_number,
+    image_link: "null",
+    set_vip: set_vip,
+  });
 };
 
 const postPriceMoney = (id, coin_payment, calculator) => {
-  return instantExportsAPIAXIOS.put(
-    `/api_backend/update_payment_in_app_user/${id}`,
-    {
-      coin_payment: coin_payment,
-      calculator: calculator,
-      contentpayment: `Bạn đã nạp số tiền +${coin_payment}`,
-    }
-  );
+  return instantExportsAPIAXIOS.put(`/update_payment_in_app_user/${id}`, {
+    coin_payment: coin_payment,
+    calculator: calculator,
+    contentpayment: `Bạn đã nạp số tiền +${coin_payment}`,
+  });
 };
 
 const listUserInHomePagiation = (page) => {
   return instantExportsAPIAXIOS.get(
-    `/api_backend/get_manager_web_userlist?page=${page}&size=25`
+    `/get_manager_web_userlist?page=${page}&size=25`
   );
 };
 
 const listUserInHomePagiationKeyword = (page, searchKey) => {
   return instantExportsAPIAXIOS.get(
-    `/api_backend/get_search_user?page=${page}&size=25&key_search=${searchKey}`
+    `/get_search_user?page=${page}&size=25&key_search=${searchKey}`
   );
 };
 
 const updatePasswordkey = (idToken, passwordReset) => {
-  return instantExportsAPIAXIOS.put(`/api_backend/reset_password/${idToken}`, {
+  return instantExportsAPIAXIOS.put(`/reset_password/${idToken}`, {
     password: passwordReset,
   });
 };
 
 const updatePrice = (idToken, coinUpdate) => {
-  return instantExportsAPIAXIOS.put(
-    `/api_backend/update_coin_guest/${idToken}`,
-    {
-      coinUpdate: coinUpdate,
-    }
-  );
+  return instantExportsAPIAXIOS.put(`/update_coin_guest/${idToken}`, {
+    coinUpdate: coinUpdate,
+  });
 };
 
 const updatePasswordPin = (idToken) => {
-  return instantExportsAPIAXIOS.put(`/api_backend/reset_passpin/${idToken}`);
+  return instantExportsAPIAXIOS.put(`/reset_passpin/${idToken}`);
 };
 
 const updateResetBank = (idToken) => {
-  return instantExportsAPIAXIOS.put(`/api_backend/reset_bankuser/${idToken}`);
+  return instantExportsAPIAXIOS.put(`/reset_bankuser/${idToken}`);
+};
+
+const updateUpdateBankAccount = (idToken, myAccountJSON) => {
+  return instantExportsAPIAXIOS.put(`/update_accountpayment/${idToken}`, {
+    my_account: myAccountJSON,
+  });
 };
 
 const deleteIdToken = (idToken) => {
-  return instantExportsAPIAXIOS.delete(
-    `/api_backend/delete_phone_user/${idToken}`
-  );
+  return instantExportsAPIAXIOS.delete(`/delete_phone_user/${idToken}`);
 };
 
 export {
@@ -106,4 +96,5 @@ export {
   updatePrice,
   listUserInHomePagiationKeyword,
   deleteIdToken,
+  updateUpdateBankAccount,
 };

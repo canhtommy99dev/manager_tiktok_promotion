@@ -4,23 +4,18 @@ const insertNotificaitonTiktok = (
   content_notification,
   description_notification
 ) => {
-  return instantExportsAPIAXIOS.post(
-    `/api_backend/insert_notification_tiktok`,
-    {
-      content_notification: content_notification,
-      description_notification: description_notification,
-    }
-  );
+  return instantExportsAPIAXIOS.post(`/insert_notification_tiktok`, {
+    content_notification: content_notification,
+    description_notification: description_notification,
+  });
 };
 
 const getListNotificationTiktok = () => {
-  return instantExportsAPIAXIOS.get(`/api_backend/list_notification_tiktok`);
+  return instantExportsAPIAXIOS.get(`/list_notification_tiktok`);
 };
 
 const deleteNotificationTiktok = (id) => {
-  return instantExportsAPIAXIOS.delete(
-    `/api_backend/delete_notification/${id}`
-  );
+  return instantExportsAPIAXIOS.delete(`/delete_notification/${id}`);
 };
 
 export {
