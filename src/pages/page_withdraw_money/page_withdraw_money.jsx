@@ -41,11 +41,7 @@ export default function PageWithDrawMoney() {
   // }
 
   const getPriceIdWithDraw = async (row) => {
-    setdataGetEdit(row);
-    setDataGetNameBank(row.payment_bank.id_bank);
-    setBankName(row.payment_bank.more_back.code);
-    setIsShowModal(true);
-    // console.log("mmmmm", res.results);
+    window.location.href = `/id_withdraw/${row.id}`;
   };
 
   const handleCloseShow = () => {

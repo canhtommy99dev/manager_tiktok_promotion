@@ -19,6 +19,7 @@ import PageWithDrawMoney from "../pages/page_withdraw_money/page_withdraw_money"
 import PageNotification from "../pages/page_manager_notification/PageSlideNotification";
 import PageManagerProductionInHomePages from "../pages/page_manager_production_in_home_page/PageManagerProductionInHomePages";
 import PageSlideImagesEndNow from "../pages/page_manager_slide_image_endnow/PageSlideImagesEndNow";
+import PageComfirmBank from "../pages/page_confirm_bank/page_confirm_bank";
 
 export default function RoutesLinkApi() {
   return (
@@ -127,6 +128,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageSlideImagesEndNow />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/id_withdraw/:id"
+          element={
+            <PrivateRouter>
+              <PageComfirmBank />
             </PrivateRouter>
           }
         />

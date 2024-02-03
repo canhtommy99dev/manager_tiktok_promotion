@@ -21,9 +21,14 @@ const getListPageWithdrawMoney = (page, keySearch) => {
   );
 };
 
+const getInfoConfirmMoney = (id) => {
+  return instantExportsAPIAXIOS.get(`/get_id_withdraw_confirm/${id}`);
+};
+
 export {
   getPriceListPeople,
   getListMoneyWithDraw,
   putAPIChangeMoney,
   getListPageWithdrawMoney,
+  getInfoConfirmMoney,
 };

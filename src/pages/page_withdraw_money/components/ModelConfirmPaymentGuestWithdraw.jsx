@@ -36,12 +36,6 @@ const ModalConfirmPaymentGuestWithdraw = (props) => {
     }
   };
 
-  // const myObject = {
-  //   account_name: "John Doe",
-  //   id_bank: "123456789",
-  //   more_back: "Some additional information",
-  // };
-
   return (
     <div
       className="modal show"
