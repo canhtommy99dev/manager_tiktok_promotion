@@ -44,7 +44,7 @@ const ModalEditBankOnCheck = (props) => {
 
   useEffect(() => {
     getLogCheck();
-  }, [myJSON]);
+  }, []);
 
   const getLogCheck = () => {
     axiosShow();

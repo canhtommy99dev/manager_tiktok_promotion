@@ -23,7 +23,7 @@ import { toast } from "react-toastify";
 import ModalAddMoney from "./components/modalAddMoney";
 import ModalPasswordNew from "./components/modalPasswordNew";
 import ModalUpdateMoney from "./components/modalEditMoney";
-import ModalEditBankOnCheck from "./components/modamEditBankOnCheck";
+// import ModalEditBankOnCheck from "./components/modamEditBankOnCheck";
 
 const PageInfoProfile = () => {
   let { id } = useParams();
@@ -31,7 +31,6 @@ const PageInfoProfile = () => {
   const [isShowModalAddPrice, setIsShowModalAddPrice] = useState(false);
   const [isShowModalUpdatePrice, setIsShowModalUpdatePrice] = useState(false);
   const [isShowModalPassword, setIsShowModalPassword] = useState(false);
-  const [isShowModalUpdateBank, setIsShowModalUpdateBank] = useState(false);
   /////
   const [userName, setUserName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -41,8 +40,6 @@ const PageInfoProfile = () => {
   const [typeSet, setTypeSet] = useState("");
   const [price, setPrice] = useState("");
   const [paymentBank, setPaymentBank] = useState({});
-  const [setNameAccountInternational, setSetNameAccountInternational] =
-    useState("");
 
   /////
   const [listProductVip, setListProductVip] = useState([]);
@@ -66,7 +63,6 @@ const PageInfoProfile = () => {
     setIsShowModalAddPrice(false);
     setIsShowModalPassword(false);
     setIsShowModalUpdatePrice(false);
-    setIsShowModalUpdateBank(false);
   };
 
   useEffect(() => {
@@ -84,7 +80,6 @@ const PageInfoProfile = () => {
     setPrice(resAPI.results.coin_user);
     setStatusResults(resAPI.status);
     setPaymentBank(resAPI.results.payment_bank);
-    setSetNameAccountInternational(resAPI.results.payment_bank.more_back);
   };
 
   const handleSumbit = async () => {
@@ -140,8 +135,8 @@ const PageInfoProfile = () => {
     }
   };
 
-  const handleUpdateBank = async (id) => {
-    setIsShowModalUpdateBank(true);
+  const handleUpdateBank = async (row) => {
+    window.location.href = `/page_update_bank/${row}`;
   };
 
   function makeid(length) {
@@ -379,7 +374,7 @@ const PageInfoProfile = () => {
         handleClose={handleCloseShow}
         handleUpdateTable={getAPIGuest}
       />
-      {paymentBank === undefined ? (
+      {/* {paymentBank === undefined ? (
         <div></div>
       ) : (
         <div>
@@ -391,7 +386,7 @@ const PageInfoProfile = () => {
             myJSON={paymentBank}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

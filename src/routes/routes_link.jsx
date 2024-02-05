@@ -20,6 +20,7 @@ import PageNotification from "../pages/page_manager_notification/PageSlideNotifi
 import PageManagerProductionInHomePages from "../pages/page_manager_production_in_home_page/PageManagerProductionInHomePages";
 import PageSlideImagesEndNow from "../pages/page_manager_slide_image_endnow/PageSlideImagesEndNow";
 import PageComfirmBank from "../pages/page_confirm_bank/page_confirm_bank";
+import PageUpdateBankAccount from "../pages/page_update_bank/page_update_bank";
 
 export default function RoutesLinkApi() {
   return (
@@ -136,6 +137,14 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageComfirmBank />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/page_update_bank/:id"
+          element={
+            <PrivateRouter>
+              <PageUpdateBankAccount />
             </PrivateRouter>
           }
         />
