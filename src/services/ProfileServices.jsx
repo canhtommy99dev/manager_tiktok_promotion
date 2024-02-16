@@ -48,9 +48,12 @@ const listUserInHomePagiation = (page) => {
 };
 
 const listUserInHomePagiationKeyword = (page, searchKey) => {
-  return instantExportsAPIAXIOS.get(
-    `/get_search_user?page=${page}&size=25&key_search=${searchKey}`
-  );
+  console.log(`hello ${page} - key ${searchKey}`);
+  return instantExportsAPIAXIOS.post(`/get_search_user`, {
+    page: page,
+    size: 25,
+    key_search: searchKey,
+  });
 };
 
 const updatePasswordkey = (idToken, passwordReset) => {
