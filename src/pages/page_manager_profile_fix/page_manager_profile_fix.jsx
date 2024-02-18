@@ -2,18 +2,22 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import ReactPaginate from "react-paginate";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   listUserInHomePagiationKeyword,
-  deleteIdToken,
+  // deleteIdToken,
 } from "../../services/ProfileServices";
+import ModalConfirmDelete from "./components/ModelConfirmDelete";
+import ModalAddUser from "./components/modalAddUser";
 
 export default function PageManagerProfileFix() {
   const navigate = useNavigate();
   const [dataList, setDataList] = useState([]);
   const [nameAccounnt, setNameAccounnt] = useState("");
   const [totalProductPage, setTotalProductPage] = useState(0);
+  const [showDelete, setShowDelete] = useState(false);
+  const [isShowModalAddUser, setIsShowModalAddUser] = useState(false);
+  const [dataGetEdit, setdataGetEdit] = useState({});
 
   useEffect(() => {
     fetchData(1, "");
@@ -42,10 +46,24 @@ export default function PageManagerProfileFix() {
     fetchData(1, "");
   };
 
+  const handleClose = () => {
+    setShowDelete(false);
+    setIsShowModalAddUser(false);
+  };
+
+  const handleConfirmDelete = (getId) => {
+    setdataGetEdit(getId);
+    setShowDelete(true);
+  };
+
   return (
     <div>
       <div className="container mt-4">
-        <Button variant="primary" className=" w-100">
+        <Button
+          variant="primary"
+          className=" w-100"
+          onClick={() => setIsShowModalAddUser(true)}
+        >
           Tạo Tài Khoản
         </Button>{" "}
         <div className="input-group mb-3">
@@ -55,6 +73,12 @@ export default function PageManagerProfileFix() {
             placeholder="Search..."
             value={nameAccounnt}
             onChange={(event) => setNameAccounnt(event.target.value)}
+            onKeyDown={(ev) => {
+              if (ev.key === "Enter") {
+                appEventSearch();
+                ev.preventDefault();
+              }
+            }}
           />
           <div className="input-group-append">
             <button
@@ -104,7 +128,12 @@ export default function PageManagerProfileFix() {
                     >
                       Sửa
                     </button>
-                    <button className="btn btn-danger">Xoá</button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleConfirmDelete(item)}
+                    >
+                      Xoá
+                    </button>
                   </td>
                 </tr>
               );
@@ -129,6 +158,17 @@ export default function PageManagerProfileFix() {
           breakLinkClassName="page-link"
           containerClassName="pagination"
           activeClassName="active"
+        />
+        <ModalConfirmDelete
+          show={showDelete}
+          handleClose={handleClose}
+          nameGetDelete={dataGetEdit}
+          handleUpdateTable={() => appClearSearch()}
+        />
+        <ModalAddUser
+          show={isShowModalAddUser}
+          handleClose={() => handleClose()}
+          handleUpdateTable={() => appClearSearch()}
         />
       </div>
     </div>
