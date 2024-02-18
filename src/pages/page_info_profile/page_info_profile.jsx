@@ -39,6 +39,7 @@ const PageInfoProfile = () => {
   // const [setVip, setSetVip] = useState("");
   const [typeSet, setTypeSet] = useState("");
   const [price, setPrice] = useState("");
+  const [lenghtMatch, setLenghtMatch] = useState("");
   const [paymentBank, setPaymentBank] = useState({});
 
   /////
@@ -80,6 +81,7 @@ const PageInfoProfile = () => {
     setPrice(resAPI.results.coin_user);
     setStatusResults(resAPI.status);
     setPaymentBank(resAPI.results.payment_bank);
+    setLenghtMatch(resAPI.results.dataVipChange.lenghtMatch);
   };
 
   const handleSumbit = async () => {
@@ -160,6 +162,7 @@ const PageInfoProfile = () => {
       ) : (
         <div>
           <h2>Coin: {Number(price).toLocaleString("en-US")} VNĐ</h2>
+          <h2>Xếp hạng quay đơn: {lenghtMatch}</h2>
           <Form>
             <Form.Group>
               <Form.Label>Họ và tên:</Form.Label>

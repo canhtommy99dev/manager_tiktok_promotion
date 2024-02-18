@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import * as React from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -188,7 +189,6 @@ export default function PageManagerProfile() {
                   <TableCell align="left">Địa Chỉ</TableCell>
                   <TableCell align="left">Cấp bậc</TableCell>
                   <TableCell align="left">Đơn Hàng Vip</TableCell>
-                  <TableCell align="left">Tiến trình giao dịch</TableCell>
                   <TableCell align="left">Thao tác</TableCell>
                 </TableRow>
               </TableHead>
@@ -208,10 +208,7 @@ export default function PageManagerProfile() {
                     <TableCell align="left">{item.user_name}</TableCell>
                     <TableCell align="left">{item.address}</TableCell>
                     <TableCell align="left">{item.vip_change}</TableCell>
-                    <TableCell align="left">{item.pending_send}</TableCell>
-                    <TableCell align="left">
-                      {item.dataVipChange.lenghtMatch}
-                    </TableCell>
+                    <TableCell align="left">{item.pending_send}</TableCell>``
                     <TableCell align="left">
                       <Button
                         variant="contained"

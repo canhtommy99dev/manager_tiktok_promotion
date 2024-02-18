@@ -11,7 +11,6 @@ import HomePage from "../pages/home_page/home_page";
 import AboutInCode from "../pages/about_in_code/about_in_code";
 import ManagerTransaction from "../pages/manager_in_transaction/manager_in_transaction";
 import PageManagerProduction from "../pages/page_manager_production/PageManagerProduction";
-import PageManagerProfile from "../pages/page_manager_profile/page_manager_profile";
 import PageInfoProfile from "../pages/page_info_profile/page_info_profile";
 import PageManagerPrice from "../pages/page_manager_price/page_manager_price";
 import PageSlideImages from "../pages/page_manager_slide_image/PageSlideImages";
@@ -21,6 +20,7 @@ import PageManagerProductionInHomePages from "../pages/page_manager_production_i
 import PageSlideImagesEndNow from "../pages/page_manager_slide_image_endnow/PageSlideImagesEndNow";
 import PageComfirmBank from "../pages/page_confirm_bank/page_confirm_bank";
 import PageUpdateBankAccount from "../pages/page_update_bank/page_update_bank";
+import PageManagerProfileFix from "../pages/page_manager_profile_fix/page_manager_profile_fix";
 
 export default function RoutesLinkApi() {
   return (
@@ -72,7 +72,7 @@ export default function RoutesLinkApi() {
           path="/manager_profile"
           element={
             <PrivateRouter>
-              <PageManagerProfile />
+              <PageManagerProfileFix />
             </PrivateRouter>
           }
         />
