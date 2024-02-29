@@ -21,6 +21,8 @@ import PageSlideImagesEndNow from "../pages/page_manager_slide_image_endnow/Page
 import PageComfirmBank from "../pages/page_confirm_bank/page_confirm_bank";
 import PageUpdateBankAccount from "../pages/page_update_bank/page_update_bank";
 import PageManagerProfileFix from "../pages/page_manager_profile_fix/page_manager_profile_fix";
+import PageCreateProduction from "../pages/page_create_production/page_create_production";
+import PageEditProduction from "../pages/page_edit_production/page_edit_production";
 
 export default function RoutesLinkApi() {
   return (
@@ -145,6 +147,22 @@ export default function RoutesLinkApi() {
           element={
             <PrivateRouter>
               <PageUpdateBankAccount />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/edit_production_shop/:id"
+          element={
+            <PrivateRouter>
+              <PageEditProduction />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          path="/create_production_shop"
+          element={
+            <PrivateRouter>
+              <PageCreateProduction />
             </PrivateRouter>
           }
         />

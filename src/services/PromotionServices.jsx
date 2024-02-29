@@ -75,6 +75,9 @@ const getFindProduction = (keysearch, category, page) => {
     `/get_search_production?page=${page}&size=25&key_search=${keysearch}&category=${category}`
   );
 };
+const getIdProduction = (id) => {
+  return instantExportsAPIAXIOS.get(`/get_infomation_product/${id}`);
+};
 
 export {
   uploadImage,
@@ -84,4 +87,5 @@ export {
   deleteProduction,
   getProductionInCode,
   getFindProduction,
+  getIdProduction,
 };

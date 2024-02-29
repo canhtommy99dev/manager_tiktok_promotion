@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://api.tiktokshopvn.org",
+  baseURL: "https://api.tiktokshop-promotion.com/api",
   // baseURL: "http://localhost:8000",
 });
 

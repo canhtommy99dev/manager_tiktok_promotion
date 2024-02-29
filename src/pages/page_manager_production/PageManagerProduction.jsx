@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 import { Button, Table, Form } from "react-bootstrap";
 import { getFindProduction } from "../../services/PromotionServices";
-import ModalAddNew from "./components/modalAddNew";
 import "./components/styles.css";
-import ModalEditUser from "./components/ModelEditUser";
 import ModalConfirmProduction from "./components/ModelConfirm";
 import ReactPaginate from "react-paginate";
+import { useNavigate } from "react-router-dom";
 
 export default function PageManagerProduction() {
+  const navigate = useNavigate();
   const [listPromotion, setListPromotion] = useState([]);
   const [isShowModalAddNew, setIsShowModalAddNew] = useState(false);
   const [isShowModalEditProduct, setIsShowModalEditProduct] = useState(false);
@@ -28,8 +28,7 @@ export default function PageManagerProduction() {
   };
 
   const handleClickEdit = (product) => {
-    setProductionEdit(product);
-    setIsShowModalEditProduct(true);
+    navigate(`/edit_production_shop/${product.id}`);
   };
 
   const handleClickDelete = (product) => {
@@ -63,16 +62,17 @@ export default function PageManagerProduction() {
     getListPromotion(textKeyFind, categoryFind, 1);
   }, []);
 
+  const addProductApp = () => {
+    navigate(`/create_production_shop`);
+  };
+
   return (
     <div>
       <div className="my-3 add-new">
         <span>
           <b>Tổng sản phẩm: {totalProduct}</b>
         </span>
-        <button
-          className="btn btn-success"
-          onClick={() => setIsShowModalAddNew(true)}
-        >
+        <button className="btn btn-success" onClick={() => addProductApp()}>
           Add Production
         </button>
       </div>
@@ -142,19 +142,19 @@ export default function PageManagerProduction() {
                       object-fit="cover"
                     />
                   </td>
-                  <td>
-                    <Button
-                      variant="warning"
+                  <td className="d-inline-flex p-2 bd-highlight">
+                    <button
+                      className="btn btn-warning me-2"
                       onClick={() => handleClickEdit(item)}
                     >
                       Edit
-                    </Button>{" "}
-                    <Button
-                      variant="danger"
+                    </button>{" "}
+                    <button
+                      className="btn btn-danger me-2"
                       onClick={() => handleClickDelete(item)}
                     >
                       Delete
-                    </Button>{" "}
+                    </button>{" "}
                   </td>
                 </tr>
               );
@@ -179,17 +179,6 @@ export default function PageManagerProduction() {
         breakLinkClassName="page-link"
         containerClassName="pagination"
         activeClassName="active"
-      />
-      <ModalAddNew
-        show={isShowModalAddNew}
-        handleClose={handleCloseShow}
-        handleUpdateTable={getListPromotion}
-      />
-      <ModalEditUser
-        show={isShowModalEditProduct}
-        handleClose={handleCloseShow}
-        handleUpdateTable={getListPromotion}
-        dataProductEdit={dataProductionEdit}
       />
       <ModalConfirmProduction
         show={isShowModalDeleteId}
