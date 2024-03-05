@@ -1,5 +1,5 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
@@ -9,13 +9,14 @@ import {
   updatePasswordkey,
   updateResetBank,
 } from "../../services/ProfileServices";
+import { getPageTransactionId } from "../../services/TransactionService";
 import { getProductionInCode } from "../../services/PromotionServices";
 import {
   getListVipGet,
   postUserViper,
   deleteAPiViper,
 } from "../../services/ServiceVipTiktok";
-import Table from "react-bootstrap/Table";
+import { Table, Tabs, Tab, Button } from "react-bootstrap";
 ///
 import Form from "react-bootstrap/Form";
 import NotFound from "../NotFound/NotFound";
@@ -23,6 +24,7 @@ import { toast } from "react-toastify";
 import ModalAddMoney from "./components/modalAddMoney";
 import ModalPasswordNew from "./components/modalPasswordNew";
 import ModalUpdateMoney from "./components/modalEditMoney";
+import ModalProductionCheck from "./components/modalProductIdCheck";
 // import ModalEditBankOnCheck from "./components/modamEditBankOnCheck";
 
 const PageInfoProfile = () => {
@@ -48,10 +50,13 @@ const PageInfoProfile = () => {
   const [typeVip, setTypeVip] = useState("");
   const [levelVip, setLevelVip] = useState(0);
 
-  //   "username": "Canh MC",
-  // "phone_number": "0356738683",
-  // "image_link": "null",
-  // "set_vip":"Thương Mại"
+  /////
+  const [pages, setPages] = useState(0);
+  const [totalsPages, setTotalsPages] = useState(0);
+  const [listPages, setListPages] = useState([]);
+  const [modalCheckProduction, setModalCheckProduction] = useState(false);
+  const [myProduction, setMyProduction] = useState({});
+
   const navigate = useNavigate();
 
   /// form
@@ -64,13 +69,24 @@ const PageInfoProfile = () => {
     setIsShowModalAddPrice(false);
     setIsShowModalPassword(false);
     setIsShowModalUpdatePrice(false);
+    setModalCheckProduction(false);
   };
 
   useEffect(() => {
     getAPIGuest();
     getAPIProductVIP();
     getVipAdd();
+    getAPITransactionShow(1);
   }, []);
+
+  const getAPITransactionShow = async (page) => {
+    const restAPI = await getPageTransactionId(id, page);
+    if (restAPI) {
+      setPages(restAPI.page);
+      setTotalsPages(restAPI.totalPages);
+      setListPages(restAPI.listPage);
+    }
+  };
 
   const getAPIGuest = async () => {
     const resAPI = await getUserGuestId(id);
@@ -153,9 +169,16 @@ const PageInfoProfile = () => {
     return result;
   }
 
+  const handleClickShowProduction = (myJSON) => {
+    setMyProduction(myJSON);
+    setModalCheckProduction(true);
+  };
+
   return (
     <div>
-      <Button onClick={() => handleBack()}>Quay lại</Button>
+      <button className="btn btn-primary" onClick={() => handleBack()}>
+        Quay lại
+      </button>
       <h2>Thông tin: {id}</h2>
       {statusResults === "not-found-account" ? (
         <NotFound />
@@ -201,14 +224,13 @@ const PageInfoProfile = () => {
                 <option value="Doanh nghiệp">Doanh nghiệp</option>
               </Form.Control>
             </Form.Group>
-            <Button
-              variant="contained"
+            <button
+              className="btn btn-primary w-100"
               onClick={() => handleSumbit()}
               type="submit"
-              fullWidth
             >
               Cập nhật
-            </Button>
+            </button>
           </Form>
           <hr />
           <div
@@ -216,57 +238,58 @@ const PageInfoProfile = () => {
               display: "flex",
             }}
           >
-            {" "}
-            <Button
-              variant="contained"
+            <button
+              className="btn btn-primary"
               onClick={() => setIsShowModalAddPrice(true)}
               type="submit"
             >
               Nạp tiền
-            </Button>
-            {"  "}
-            <Button
-              variant="contained"
+            </button>
+            <button
+              className="btn btn-primary mx-2"
               type="submit"
               onClick={() => setIsShowModalUpdatePrice(true)}
             >
               Chỉnh tiền cho khách
-            </Button>
-            {"  "}
-            <Button
-              variant="contained"
+            </button>
+            <button
+              className="btn btn-primary mx-2"
               type="submit"
               onClick={() => newPassPin(id)}
             >
               Reset Mã PIN
-            </Button>
-            {"  "}
-            <Button
-              variant="contained"
+            </button>
+            <button
+              className="btn btn-primary mx-2"
               type="submit"
               onClick={() => newPasswordReset(id)}
             >
               Reset Mật Khẩu
-            </Button>
-            {"  "}
-            <Button
-              variant="contained"
+            </button>
+            <button
+              className="btn btn-primary mx-2"
               type="submit"
               onClick={() => resetBank(id)}
             >
               Reset Ngân Hàng
-            </Button>
-            {"  "}
+            </button>
+            <button
+              className="btn btn-primary mx-2"
+              type="submit"
+              // onClick={() => resetBank(id)}
+            >
+              Reset Đơn Hàng
+            </button>
             {paymentBank.account_name === undefined ? (
               <></>
             ) : (
-              <Button
-                variant="contained"
+              <button
+                className="btn btn-primary mx-2"
                 type="submit"
                 onClick={() => handleUpdateBank(id)}
               >
                 Sửa tài khoản ngân hàng
-              </Button>
+              </button>
             )}
           </div>
           <hr />
@@ -314,47 +337,99 @@ const PageInfoProfile = () => {
               onChange={(event) => setLevelVip(event.target.value)}
             />
           </Form.Group>
-          <Button
-            variant="contained"
+          <button
+            className="btn btn-primary w-100"
             onClick={() => handleSumbitVip()}
             type="submit"
-            fullWidth
           >
             Xác nhận gài Vip
-          </Button>
+          </button>
+          <Tabs defaultActiveKey="tab1" id="tabs">
+            <Tab eventKey="tab1" title="Quản Lý Vip">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Sản phẩm gắn</th>
+                    <th>Sắp Sếp</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {lstVipAdd &&
+                    lstVipAdd.length > 0 &&
+                    lstVipAdd.map((item, index) => {
+                      return (
+                        <tr key={`user-${index}`}>
+                          <td>{item.id}</td>
+                          <td>{item.id_promotion_vip}</td>
+                          <td>{item.sort}</td>
+                          <td>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => handleClickDelete(item.id)}
+                            >
+                              Xoá đơn vip
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+            </Tab>
+            <Tab eventKey="tab2" title="Quản lý đơn quay">
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Id</th>
+                    <th>Trạng thái</th>
+                    <th>Số tiền</th>
+                    <th>Hoa Hồng</th>
+                    <th>Tổng tiền</th>
+                    <th>Id Sản Phẩm</th>
+                    <th>Ngày giao dịch</th>
+                    <th>Xem</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listPages &&
+                    listPages.length > 0 &&
+                    listPages.map((item, index) => {
+                      return (
+                        <tr key={`user-${index}`}>
+                          <td>{item.id_generation}</td>
+                          <td>{item.status}</td>
+                          <td>{item.price_transaction}</td>
+                          <td>{item.discount}</td>
+                          <td>{item.price_transaction + item.discount}</td>
+                          <td>{item.id_production}</td>
+                          <td>{item.date_create_at}</td>
+                          <td>
+                            <Button
+                              className={`btn  w-100 btn-primary`}
+                              disabled={
+                                item.getProduction.status === "not-found"
+                                  ? true
+                                  : false
+                              }
+                              onClick={() =>
+                                handleClickShowProduction(
+                                  item.getProduction.results
+                                )
+                              }
+                            >
+                              Xem Sản Phẩm
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+            </Tab>
+          </Tabs>
           <br />
-          <br />
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Sản phẩm gắn</th>
-                <th>Sắp Sếp</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {lstVipAdd &&
-                lstVipAdd.length > 0 &&
-                lstVipAdd.map((item, index) => {
-                  return (
-                    <tr key={`user-${index}`}>
-                      <td>{item.id}</td>
-                      <td>{item.id_promotion_vip}</td>
-                      <td>{item.sort}</td>
-                      <td>
-                        <Button
-                          variant="danger"
-                          onClick={() => handleClickDelete(item.id)}
-                        >
-                          Xoá đơn vip
-                        </Button>{" "}
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </Table>
         </div>
       )}
       <ModalAddMoney
@@ -377,19 +452,11 @@ const PageInfoProfile = () => {
         handleClose={handleCloseShow}
         handleUpdateTable={getAPIGuest}
       />
-      {/* {paymentBank === undefined ? (
-        <div></div>
-      ) : (
-        <div>
-          <ModalEditBankOnCheck
-            idGet={id}
-            show={isShowModalUpdateBank}
-            handleClose={handleCloseShow}
-            handleUpdateTable={getAPIGuest}
-            myJSON={paymentBank}
-          />
-        </div>
-      )} */}
+      <ModalProductionCheck
+        show={modalCheckProduction}
+        handleClose={handleCloseShow}
+        idProduction={myProduction}
+      />
     </div>
   );
 };

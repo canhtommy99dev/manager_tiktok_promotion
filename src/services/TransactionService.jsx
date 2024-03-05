@@ -19,10 +19,18 @@ const deleteUser = (id) => {
 const loginApp = (email, password) => {
   return instantExportsAPIAXIOS.post(`/api/login`, { email, password });
 };
+
+const getPageTransactionId = (id, pages) => {
+  return instantExportsAPIAXIOS.get(
+    `/get_list_total_trasaction_page/${id}?page=${pages}`
+  );
+};
+
 export {
   UserTransactionServices,
   ProductionTiktokPromotion,
   putUpdateUser,
   deleteUser,
   loginApp,
+  getPageTransactionId,
 };
