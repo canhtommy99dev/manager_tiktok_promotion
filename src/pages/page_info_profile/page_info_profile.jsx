@@ -28,6 +28,7 @@ import ModalAddMoney from "./components/modalAddMoney";
 import ModalPasswordNew from "./components/modalPasswordNew";
 import ModalUpdateMoney from "./components/modalEditMoney";
 import ModalProductionCheck from "./components/modalProductIdCheck";
+import ReactPaginate from "react-paginate";
 // import ModalEditBankOnCheck from "./components/modamEditBankOnCheck";
 
 const PageInfoProfile = () => {
@@ -182,6 +183,10 @@ const PageInfoProfile = () => {
   const handleClickShowProduction = (myJSON) => {
     setMyProduction(myJSON);
     setModalCheckProduction(true);
+  };
+
+  const handlePageClick = (event) => {
+    getAPITransactionShow(event.selected + 1);
   };
 
   return (
@@ -410,9 +415,21 @@ const PageInfoProfile = () => {
                         <tr key={`user-${index}`}>
                           <td>{item.id_generation}</td>
                           <td>{item.status}</td>
-                          <td>{item.price_transaction}</td>
-                          <td>{item.discount}</td>
-                          <td>{item.price_transaction + item.discount}</td>
+                          <td>
+                            {Number(item.price_transaction).toLocaleString(
+                              "en-US"
+                            )}{" "}
+                            VNĐ
+                          </td>
+                          <td>
+                            {Number(item.discount).toLocaleString("en-US")} VNĐ
+                          </td>
+                          <td>
+                            {Number(
+                              item.price_transaction + item.discount
+                            ).toLocaleString("en-US")}{" "}
+                            VNĐ
+                          </td>
                           <td>{item.id_production}</td>
                           <td>{item.date_create_at}</td>
                           <td>
@@ -437,6 +454,25 @@ const PageInfoProfile = () => {
                     })}
                 </tbody>
               </Table>
+              <ReactPaginate
+                nextLabel="Sau"
+                onPageChange={handlePageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={2}
+                pageCount={totalsPages}
+                previousLabel="Trước"
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakLabel="..."
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                containerClassName="pagination"
+                activeClassName="active"
+              />
             </Tab>
           </Tabs>
           <br />
