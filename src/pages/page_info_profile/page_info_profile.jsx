@@ -163,7 +163,7 @@ const PageInfoProfile = () => {
   const handleResetRandomButton = async () => {
     let resAPI = await deleteRandomOrder(id);
     if (resAPI) {
-      toast.success("Bạn đã Reset Đơn Hàng");
+      toast.success("Bạn đã Reset Đơn Hàng Hôm Nay");
     }
   };
 
@@ -288,7 +288,7 @@ const PageInfoProfile = () => {
               type="submit"
               onClick={() => handleResetRandomButton(id)}
             >
-              Reset Đơn Hàng
+              Reset Đơn Hàng Hôm Nay
             </button>
             {paymentBank.account_name === undefined ? (
               <></>
