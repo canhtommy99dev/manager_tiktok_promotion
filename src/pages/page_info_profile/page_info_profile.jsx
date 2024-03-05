@@ -53,6 +53,7 @@ const PageInfoProfile = () => {
   const [lstVipAdd, setLstVipAdd] = useState([]);
   const [typeVip, setTypeVip] = useState("");
   const [levelVip, setLevelVip] = useState(0);
+  const [maxiumCode, setMaxiumCode] = useState(0);
 
   /////
   const [pages, setPages] = useState(0);
@@ -102,6 +103,7 @@ const PageInfoProfile = () => {
     setStatusResults(resAPI.status);
     setPaymentBank(resAPI.results.payment_bank);
     setLenghtMatch(resAPI.results.dataVipChange.lenghtMatch);
+    setMaxiumCode(resAPI.results.dataVipChange.maxiumCode);
   };
 
   const handleSumbit = async () => {
@@ -347,18 +349,27 @@ const PageInfoProfile = () => {
             <Form.Control
               type="number"
               co
-              placeholder="Cài Số Vip"
+              placeholder={`Cài Số Vip không quá: ${maxiumCode}`}
               value={levelVip}
               onChange={(event) => setLevelVip(event.target.value)}
             />
           </Form.Group>
-          <button
+          <Button
             className="btn btn-primary w-100"
             onClick={() => handleSumbitVip()}
             type="submit"
+            disabled={
+              levelVip === 0
+                ? true
+                : levelVip > maxiumCode
+                ? true
+                : levelVip === ""
+                ? true
+                : false
+            }
           >
             Xác nhận gài Vip
-          </button>
+          </Button>
           <Tabs defaultActiveKey="tab1" id="tabs">
             <Tab eventKey="tab1" title="Quản Lý Vip">
               <Table striped bordered hover>
