@@ -361,6 +361,8 @@ const PageInfoProfile = () => {
             disabled={
               levelVip === 0
                 ? true
+                : levelVip < 1
+                ? true
                 : levelVip > maxiumCode
                 ? true
                 : levelVip === ""
