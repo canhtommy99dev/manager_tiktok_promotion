@@ -26,6 +26,10 @@ const getPageTransactionId = (id, pages) => {
   );
 };
 
+const deleteRandomOrder = (id) => {
+  return instantExportsAPIAXIOS.delete(`/reset_random_in_today/${id}`);
+};
+
 export {
   UserTransactionServices,
   ProductionTiktokPromotion,
@@ -33,4 +37,5 @@ export {
   deleteUser,
   loginApp,
   getPageTransactionId,
+  deleteRandomOrder,
 };

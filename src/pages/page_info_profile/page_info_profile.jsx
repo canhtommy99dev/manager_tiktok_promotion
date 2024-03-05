@@ -9,7 +9,10 @@ import {
   updatePasswordkey,
   updateResetBank,
 } from "../../services/ProfileServices";
-import { getPageTransactionId } from "../../services/TransactionService";
+import {
+  getPageTransactionId,
+  deleteRandomOrder,
+} from "../../services/TransactionService";
 import { getProductionInCode } from "../../services/PromotionServices";
 import {
   getListVipGet,
@@ -157,6 +160,13 @@ const PageInfoProfile = () => {
     window.location.href = `/page_update_bank/${row}`;
   };
 
+  const handleResetRandomButton = async () => {
+    let resAPI = await deleteRandomOrder(id);
+    if (resAPI) {
+      toast.success("Bạn đã Reset Đơn Hàng");
+    }
+  };
+
   function makeid(length) {
     let result = "";
     const characters = "0123456789";
@@ -276,7 +286,7 @@ const PageInfoProfile = () => {
             <button
               className="btn btn-primary mx-2"
               type="submit"
-              // onClick={() => resetBank(id)}
+              onClick={() => handleResetRandomButton(id)}
             >
               Reset Đơn Hàng
             </button>
