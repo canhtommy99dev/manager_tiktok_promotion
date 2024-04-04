@@ -377,9 +377,9 @@ const PageInfoProfile = () => {
               <Table striped bordered hover>
                 <thead>
                   <tr>
-                    <th>Id</th>
-                    <th>Sản phẩm gắn</th>
                     <th>Sắp Sếp</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá sản phẩm</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -389,9 +389,18 @@ const PageInfoProfile = () => {
                     lstVipAdd.map((item, index) => {
                       return (
                         <tr key={`user-${index}`}>
-                          <td>{item.id}</td>
-                          <td>{item.id_promotion_vip}</td>
                           <td>{item.sort}</td>
+                          <td>{item.name_product}</td>
+                          <td>
+                            {Number(item.price).toLocaleString("en-US")} VND{" "}
+                          </td>
+                          <td>
+                            {" "}
+                            {Number(item.commission_discount).toLocaleString(
+                              "en-US"
+                            )}{" "}
+                            VNĐ
+                          </td>
                           <td>
                             <button
                               className="btn btn-danger"
