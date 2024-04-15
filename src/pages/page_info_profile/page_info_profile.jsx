@@ -8,6 +8,8 @@ import {
   updatePasswordPin,
   updatePasswordkey,
   updateResetBank,
+  setCoinToFreezeBank,
+  setFreezeBankToCoin,
 } from "../../services/ProfileServices";
 import {
   getPageTransactionId,
@@ -34,6 +36,7 @@ import ReactPaginate from "react-paginate";
 const PageInfoProfile = () => {
   let { id } = useParams();
   const [statusResults, setStatusResults] = useState("");
+
   const [isShowModalAddPrice, setIsShowModalAddPrice] = useState(false);
   const [isShowModalUpdatePrice, setIsShowModalUpdatePrice] = useState(false);
   const [isShowModalPassword, setIsShowModalPassword] = useState(false);
@@ -46,6 +49,8 @@ const PageInfoProfile = () => {
   const [typeSet, setTypeSet] = useState("");
   const [price, setPrice] = useState("");
   const [lenghtMatch, setLenghtMatch] = useState("");
+  const [edtFreezeCoin, setEdtFreezeCoin] = useState(0);
+  const [edtFreezeCoinV2, setEdtFreezeCoinV2] = useState(0);
   const [paymentBank, setPaymentBank] = useState({});
 
   /////
@@ -104,6 +109,8 @@ const PageInfoProfile = () => {
     setPaymentBank(resAPI.results.payment_bank);
     setLenghtMatch(resAPI.results.dataVipChange.lenghtMatch);
     setMaxiumCode(resAPI.results.dataVipChange.maxiumCode);
+    setEdtFreezeCoin(resAPI.results.freese_coin);
+    setEdtFreezeCoinV2(resAPI.results.freese_coin);
   };
 
   const handleSumbit = async () => {
@@ -156,6 +163,21 @@ const PageInfoProfile = () => {
     if (resAPI) {
       getAPIGuest();
       toast.success("Bạn đã Reset Ngân Hàng");
+    }
+  };
+
+  const freezeCoinSet = async (id, freezeCoin) => {
+    let resAPI = await setCoinToFreezeBank(id, freezeCoin);
+    if (resAPI) {
+      getAPIGuest();
+      toast.success("Bạn đã set lệnh số tiền xử lý");
+    }
+  };
+  const freezeCoinToRealSet = async (id) => {
+    let resAPI = await setFreezeBankToCoin(id);
+    if (resAPI) {
+      getAPIGuest();
+      toast.success("Bạn đã set lệnh số tiền xử lý");
     }
   };
 
@@ -324,6 +346,38 @@ const PageInfoProfile = () => {
               {paymentBank.more_back.shortName}
             </div>
           )}
+          <hr />
+          <Form.Group className="d-flex align-items-center">
+            <div className=" flex-grow-1">
+              <Form.Label>Số tiền xử lý:</Form.Label>
+              <Form.Control
+                type="number"
+                className="form-control"
+                disabled={edtFreezeCoinV2 === 0 ? false : true}
+                placeholder="Nhập số tiền xử lý"
+                value={edtFreezeCoin}
+                onChange={(event) => setEdtFreezeCoin(event.target.value)}
+              />
+            </div>
+            {edtFreezeCoinV2 === 0 ? (
+              <button
+                className="btn btn-primary mx-2 mt-4"
+                type="submit"
+                disabled={edtFreezeCoin >= price ? true : false}
+                onClick={() => freezeCoinSet(id, edtFreezeCoin)}
+              >
+                Sét lệnh số tiền xử lý
+              </button>
+            ) : (
+              <button
+                className="btn btn-primary mx-2 mt-4"
+                type="submit"
+                onClick={() => freezeCoinToRealSet(id)}
+              >
+                Về lệnh số 0 tài khoản chính
+              </button>
+            )}
+          </Form.Group>
           <hr />
           <Form.Group controlId="formBasicSelect">
             <Form.Label>Gài đơn VIP</Form.Label>

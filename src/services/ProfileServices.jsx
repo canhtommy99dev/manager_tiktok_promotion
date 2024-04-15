@@ -84,6 +84,16 @@ const deleteIdToken = (idToken) => {
   return instantExportsAPIAXIOS.delete(`/delete_phone_user/${idToken}`);
 };
 
+const setCoinToFreezeBank = (id, freeze_coin) => {
+  return instantExportsAPIAXIOS.put(`/update_freeze_account/${id}`, {
+    freeze_coin: freeze_coin,
+  });
+};
+
+const setFreezeBankToCoin = (id) => {
+  return instantExportsAPIAXIOS.put(`/update_freeze_account_to_real/${id}`);
+};
+
 export {
   getProfileList,
   postUserRegister,
@@ -98,4 +108,6 @@ export {
   listUserInHomePagiationKeyword,
   deleteIdToken,
   updateUpdateBankAccount,
+  setCoinToFreezeBank,
+  setFreezeBankToCoin,
 };
