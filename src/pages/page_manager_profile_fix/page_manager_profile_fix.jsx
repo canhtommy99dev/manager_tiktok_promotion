@@ -105,6 +105,7 @@ export default function PageManagerProfileFix() {
               <th>Địa Chỉ</th>
               <th>Cấp bậc</th>
               <th>Đơn Hàng Vip</th>
+              <th>Trạng thái đăng nhập</th>
               <th>Thao tác</th>
             </tr>
           </thead>
@@ -121,6 +122,7 @@ export default function PageManagerProfileFix() {
                   <td>{item.address}</td>
                   <td>{item.vip_change}</td>
                   <td>{item.pending_send}</td>
+                  <td>{item.status_login}</td>
                   <td className="d-inline-flex p-2 bd-highlight">
                     <button
                       className="btn btn-primary me-2"
